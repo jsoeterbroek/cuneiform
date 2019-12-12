@@ -26,6 +26,7 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+migrations
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -60,6 +61,8 @@ coverage.xml
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
+cuneiform.sqlite
+secret_settings.py
 
 # Flask stuff:
 instance/
@@ -91,7 +94,7 @@ ipython_config.py
 #   install all needed dependencies.
 #Pipfile.lock
 
-# PEP 582; used by e.g. github.com/David-OConnor/pyflow
+# pyflow
 __pypackages__/
 
 # Celery stuff
@@ -127,3 +130,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+test_users.txt
+organisation.md
+
+# vim .swp 
+.swp

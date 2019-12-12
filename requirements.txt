@@ -1,0 +1,9 @@
+Django==2.2.7
+django-admin==2.0.0
+django-six==1.0.4
+python-dateutil==2.8.1
+pytz==2019.3
+django-crispy-forms==1.8.0
+psycopg2==2.8.4
+django-octicons==1.0.2
+django-simple-history==2.7.3
