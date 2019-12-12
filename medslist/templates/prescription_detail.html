@@ -1,0 +1,56 @@
+{% extends "medslist_base.html" %}
+{% load octicons %}
+
+{% block content %}
+<p>&nbsp;</p>
+<h2>Prescriptie</h2>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<div class="card bg-light mb-3" style="width: 50rem;">
+  <!--<img src="..." class="card-img-top" alt="...">-->
+  <div class="card-header"><strong>{{prescription.name}}</strong>
+	  <br> 
+    {% if lastmod %}
+      {% octicon "book" height="20" class="small" color=".hmas_color_1" %}&nbsp;&nbsp;
+      <i>Laatst aangepast {{lastmod_when}} door {{lastmod_who}}.</i><br>
+    {% endif %}
+    {% octicon "eye" height="20" class="small" color=".hmas_color_1" %}&nbsp;&nbsp;
+    {% if doublecheck %}
+        <i>Dubbelcontrole uitgevoerd {{doublecheck_when }} door {{doublecheck_who}}.</i>
+    {% else %}
+        <i>Dubbelcontrole nog niet uitgevoerd op dit object!</i>
+    {% endif %}
+  </div>
+  <div class="card-body">
+    <p class="card-text">
+<table>
+<tr>
+	<td><b>Medicijn:</b></td><td> {{ prescription.med }}</td>
+</tr><tr>
+	<td><b>Client:</b></td><td> {{ prescription.client }}</td>
+</tr><tr>
+	<td><b>Periode:</b></td><td> Van {{ prescription.start_date }} tot {{ prescription.end_date }}</td>
+</tr><tr>
+	<td><b>Huisarts:</b></td><td> {{ prescription.doctor }}</td>
+</tr><tr>
+	<td><b>Matrix:</b></td><td> &nbsp;</td>
+</tr><tr>
+	<td colspan="2"> {% include "prescription_detail_matrix.html" %} </td>
+</tr><tr>
+	<td colspan="2"> {{ prescription.remarks }}</td>
+</tr>
+</table>
+<p>&nbsp;</p>
+<p>
+
+     <a href="{% url 'prescription-edit' pk=prescription.pk %}" class="btn btn-primary" role="button">Aanpassen</a>
+     <a href="{% url 'prescription-matrix-edit' pk=prescription.pk %}" class="btn btn-primary" role="button">Matrix Aanpassen</a>
+    {% if doublecheck %}
+      <a href="#" class="btn btn-primary disabled" role="button" aria-disabled="true">Dubbelcontrole</a>
+    {% else %}
+      <a href="{% url 'prescription-doublecheck' pk=prescription.pk %}" class="btn btn-primary" role="button">Dubbelcontrole</a>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+

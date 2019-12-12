@@ -1,0 +1,21 @@
+{% extends "medslist_base.html" %}
+{% load octicons %}
+{% load crispy_forms_tags %}
+{% crispy form form.helper %}
+{% block content %}
+<p>&nbsp;</p>
+<h2>Client</h2>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<div class="card bg-light mb-3" style="width: 50rem;">
+  <!--<img src="..." class="card-img-top" alt="...">-->
+  <div class="card-header"><strong>{{ client.firstname }} {{ client.lastname }} ({{ client.dateofbirth }})<strong></div>
+    <div class="card-body">
+    <p class="card-text">
+       {% csrf_token %}
+       {% crispy form %}
+    </p>
+  </div>
+</div>
+
+{% endblock %}

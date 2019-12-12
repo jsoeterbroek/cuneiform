@@ -1,0 +1,22 @@
+{% extends "medslist_base.html" %}
+
+{% block content %}
+<p>&nbsp;</p>
+  <h2>Clienten</h2>
+  {% if plist %}
+  <table class="table table-striped table-sm">
+	  <tbody>
+    {% for p in plist %}
+      <tr>
+	      <td><a href="{{p.get_absolute_url}}/medslist/client/{{p.pk}}">{{p.lastname }}, {{p.firstname}} ({{p.dateofbirth}})</a></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+  </table>
+
+  {% include "pagination.html" %}
+
+  {% else %}
+    <p>There are no clients in the database.</p>
+  {% endif %}
+{% endblock %}

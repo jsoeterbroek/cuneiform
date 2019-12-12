@@ -1,0 +1,36 @@
+{% extends "medslist_base.html" %}
+{% load octicons %}
+
+{% block content %}
+<p>&nbsp;<p>
+<h2>Client</h2>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<div class="card bg-light" style="width: 50rem;">
+  <!--<img src="..." class="card-img-top" alt="...">-->
+  <div class="card-header"><strong>{{ client.firstname }} {{ client.lastname }} ({{ client.dateofbirth }})</strong>
+	  <br> 
+    {% if lastmod %}
+      {% octicon "book" height="20" class="small" color=".hmas_color_1" %}&nbsp;&nbsp;
+      <i>Laatst aangepast {{lastmod_when}} door {{lastmod_who}}.</i><br>
+    {% endif %}
+  </div>
+  <div class="card-body">
+    <p class="card-text">
+    <b>Geboortedatum</b><br>
+    {{ client.dateofbirth }}</p>
+    <b>BSN</b><br>
+    {{ client.bsn }}
+     <br><br> 
+     {% if client_plist %}
+     <b>Prescripties</b>
+        {% include "client_prescription_list.html" %}
+     {% else %}
+        <br><br> 
+     {% endif %}
+     <p>
+     <a href="{% url 'client-edit' pk=client.pk %}" class="btn btn-primary" role="button">Aanpassen</a>
+  </div>
+</div>
+{% endblock %}
+

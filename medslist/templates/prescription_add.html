@@ -1,0 +1,21 @@
+{% extends "medslist_base.html" %}
+{% load octicons %}
+{% load crispy_forms_tags %}
+{% crispy form form.helper %}
+{% block content %}
+<p>&nbsp;</p>
+<h2>Prescriptie toevoegen</h2>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<div class="card bg-light" style="width: 50rem;">
+    <div class="card-header"> </div>
+  <!--<img src="..." class="card-img-top" alt="...">-->
+  <div class="card-body">
+    <h6 class="card-subtitle mb-2 text-muted"> </h6>
+    <p class="card-text">
+       {% csrf_token %}
+       {% crispy form %}
+    </p>
+  </div>
+</div>
+
+{% endblock %}

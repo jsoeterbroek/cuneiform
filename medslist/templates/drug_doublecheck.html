@@ -1,0 +1,44 @@
+{% extends "medslist_base.html" %}
+{% load octicons %}
+{% block content %}
+<p>&nbsp;</p>
+<h2>Medicijn Dubbelcheck</h2>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<div class="card bg-light mb-3" style="width: 50rem;">
+  <!--<img src="..." class="card-img-top" alt="...">-->
+  <div class="card-header"><strong>{{ drug.name }}</strong></div>
+  <div class="card-body">
+     
+    <p>&nbsp;</p>
+    {% if lastmod_who != request_who %} 
+
+        <div class="alert alert-info">
+            <p><strong> Weet je het zeker??</strong></p>
+        </div>
+        <p>Je staat op het punt om dubbelcontrole  te doen op medicijn <b>'{{ drug.name }}'</b>.
+        Heb je de informatie goed gecontroleerd?</p>
+
+        <a href="{% url 'drug-detail' pk=drug.pk %}" class="btn btn-danger" role="button">Nee, terug</a>
+	<a href="{% url 'drug-doublecheck-next' pk=drug.pk %}" class="btn btn-primary" role="button">Ja, prima</a>
+
+    {% else %}
+
+        <div class="alert alert-info">
+            <p>
+	    <strong>Dubbelcontrole op Medicijn '{{ drug.name }}' niet mogelijk.</strong><br>
+            Je kunt geen dubbelcontrole uitvoeren op 
+            een object wat je zelf als laatste heb aangepast. Vraag een collega om het te doen.
+            </p>
+        </div>
+        <p>&nbsp;</p>
+        <a href="{% url 'drug-detail' pk=drug.pk %}" class="btn btn-primary" role="button">OK, terug</a>
+
+    {% endif %}
+
+    <p>
+
+    </p>
+  </div>
+</div>
+{% endblock %}

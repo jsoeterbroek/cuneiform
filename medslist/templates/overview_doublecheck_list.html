@@ -1,0 +1,28 @@
+{% extends "medslist_base.html" %}
+
+{% block content %}
+  <h2>Overzicht</h2>
+  <h5>dubbelcontrole</h5>
+  <!--<h6>gesorteerd op datum, laatste bovenaan</h6>-->
+  {% if log_list %}
+  <table class="table table-striped table-sm">
+     <thead>
+	    <tr>
+		    <td><b>Wanneer</b></td>
+		    <td><b>Wie</b></td>
+		    <td><b>Object_id</b></td>
+		    <td><b>Bericht</b></td>
+	    </tr>
+       </thead>
+      <tbody>
+          {% for l in list %}
+            <tr>
+	      <td> {{l.action_time}} </td><td> {{l.user}}</td><td> {{l.object_id}} </td><td> {{l.change_message }} </td>
+            </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+  {% else %}
+    <p>There are no entries in the database.</p>
+  {% endif %}       
+{% endblock %}

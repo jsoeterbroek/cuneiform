@@ -1,0 +1,45 @@
+{% extends "medslist_base.html" %}
+{% load octicons %}
+{% block content %}
+<p>&nbsp;</p>
+<h2>Medicijn</h2>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<div class="card bg-light mb-3" style="width: 50rem;">
+  <!--<img src="..." class="card-img-top" alt="...">-->
+  <div class="card-header"><strong>{{ drug.name }}</strong>
+    <br> 
+    {% if lastmod %}
+      {% octicon "book" height="20" class="small" color=".hmas_color_1" %}&nbsp;&nbsp;
+      <i>Laatst aangepast {{lastmod_when}} door {{lastmod_who}}.</i><br>
+    {% endif %}
+    {% octicon "eye" height="20" class="small" color=".hmas_color_1" %}&nbsp;&nbsp;
+    {% if doublecheck %}
+        <i>Dubbelcontrole uitgevoerd {{doublecheck_when }} door {{doublecheck_who}}.</i>
+    {% else %}
+    <i>Dubbelcontrole nog niet uitgevoerd op dit object!</i>
+    {% endif %}
+  </div>
+  <div class="card-body">
+    <p class="card-text">
+    <b>Uiterlijk</b><br>
+    {{ drug.appearance }}</p>
+    <b>Werkzame stof</b><br>
+    {{ drug.werkzamestof }}</p>
+    <p><b>Te gebruiken bij</b><br>
+    {{ drug.use }}</p>
+    <b>Inname</b><br>
+    {{ drug.intake }}</p>
+    <p><b>Mogelijke bijwerkingen</b><br>
+    {{ drug.sideeffects }}</p>
+    <p><b>Bijzonderheden</b><br>
+    {{ drug.particularities }}</p>
+    <a href="{% url 'drug-edit' pk=drug.pk %}" class="btn btn-primary" role="button">Aanpassen</a>
+    {% if doublecheck %}
+      <a href="#" class="btn btn-primary disabled" role="button" aria-disabled="true">Dubbelcontrole</a>
+    {% else %}
+      <a href="{% url 'drug-doublecheck' pk=drug.pk %}" class="btn btn-primary" role="button">Dubbelcontrole</a>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

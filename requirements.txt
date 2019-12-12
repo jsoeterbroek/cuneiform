@@ -7,3 +7,14 @@ django-crispy-forms==1.8.0
 psycopg2==2.8.4
 django-octicons==1.0.2
 django-simple-history==2.7.3
+# get django-audit_log from github
+# https://github.com/vvangelovski/django-audit-log
+#django-audit-log==0.7.0
+#django-split-json-widget==1.16
+#jsonfield==2.0.2
+django-organizations==1.1.2
+django-extensions==2.2.5
+django-stub
+pylint
+mypy
+pandas==0.25.3

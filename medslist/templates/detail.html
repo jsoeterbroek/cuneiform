@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ prescription.name }}</h2>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<table>
+<tr>
+	<td><b>id:</b></td><td> {{ prescription.pk }}</td>
+</tr><tr>
+	<td><b>med:</b></td><td> {{ prescription.med }}</td>
+</tr><tr>
+	<td><b>start:</b></td><td> {{ prescription.start_date }}</td>
+</tr><tr>
+	<td><b>matrix:</b></td><td> {{ prescription.matrix }}</td>
+</tr>
+</table>
+{% endblock %}
