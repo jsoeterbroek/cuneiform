@@ -9,8 +9,8 @@ Installation instructions in INSTALLATION.md file.
 
 # Links
 
-* [Github Repository](https://github.com/jsoeterbroek/hmas)
-* [Github Issue Tracker](https://github.com/jsoeterbroek/hmas/issues)
+* [Github Repository](https://github.com/jsoeterbroek/cuneiform)
+* [Github Issue Tracker](https://github.com/jsoeterbroek/cuneiform/issues)
 
 
 # Todo
