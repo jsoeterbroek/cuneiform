@@ -11,37 +11,37 @@ class ModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         #print("setUpTestData: Run once to set up non-modified data for all class methods.")
-        u1 = User.objects.create_user(username='user1', password='top_secret')
-        u2 = User.objects.create_user(username='user2', password='top_secret')
-        u3 = User.objects.create_user(username='user3', password='top_secret')
-        u4 = User.objects.create_user(username='user4', password='top_secret')
-        d1 = Drug.objects.create(
+        cls.u1 = User.objects.create_user(username='user1', password='top_secret')
+        cls.u2 = User.objects.create_user(username='user2', password='top_secret')
+        cls.u3 = User.objects.create_user(username='user3', password='top_secret')
+        cls.u4 = User.objects.create_user(username='user4', password='top_secret')
+        cls.d1 = Drug.objects.create(
             name='paracetamol', ingredient='paracetamol', use='headache',
             sideeffects='more headaches', particularities='geen'
         )
-        doc1 = Doctor.objects.create(firstname='firstname', lastname='lastname')
-        c1 = Client.objects.create(
+        cls.doc1 = Doctor.objects.create(firstname='firstname', lastname='lastname')
+        cls.c1 = Client.objects.create(
             firstname='firstname', lastname='testclient',
             dateofbirth='1968-01-22', bsn='122475243'
         )
-        c2 = Client.objects.create(
+        cls.c2 = Client.objects.create(
             firstname='firstname', lastname='testclient2',
             dateofbirth='1968-01-22', bsn='122475243'
         )
-        Prescription.objects.create_prescription(
+        cls.p1 = Prescription.objects.create(
             name='prescription test one',
-            client=c1,
-            drug=d1,
-            doctor=doc1,
+            client=cls.c1,
+            drug=cls.d1,
+            doctor=cls.doc1,
             remarks='remark',
             start_date='2019-11-10',
             end_date='2019-12-30'
         )
-        Prescription.objects.create_prescription(
+        cls.p2 = Prescription.objects.create(
             name='prescription test two',
-            client=c2,
-            drug=d1,
-            doctor=doc1,
+            client=cls.c2,
+            drug=cls.d1,
+            doctor=cls.doc1,
             remarks='remark',
             start_date='2019-11-10',
             end_date='2019-12-30'
@@ -60,6 +60,21 @@ class ModelTest(TestCase):
         print("test_model_drug_name_label")
         drug = Drug.objects.get(id=1)
         self.assertEqual(drug.name, 'paracetamol')
+
+    def test_model_prescription_create(self):
+        print("test_model_prescription_create")
+        Prescription.objects.create(
+            name='prescription test two',
+            client=self.c2,
+            drug=self.d1,
+            doctor=self.doc1,
+            remarks='remark',
+            start_date='2019-11-10',
+            end_date='2019-12-30'
+	)
+        #p3 = Prescription.objects.get(id=3)
+        #df = p3.get_pdfmatrix()
+        #print(df)
 
     def test_model_prescription_name_labels(self):
         print("test_model_prescription_name_label")

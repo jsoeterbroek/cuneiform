@@ -11,7 +11,7 @@ from django.utils import timezone
 #from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages import constants as messages
-#from log.models import CuneiformLogEntry, DRUG, CLIENT, PRESCRIPTION
+from log.models import CuneiformLogEntry, DRUG, CLIENT, PRESCRIPTION
 #from cuneiform.create_pe import create_pe, update_pe
 from .forms import PrescriptionForm, ClientForm, DrugForm
 from .models import Prescription, Client, Drug
@@ -491,6 +491,7 @@ def PrescriptionEditView(request, pk):
 
     try:
         prescription = Prescription.objects.get(pk=pk)
+        df = prescription.get_pdfmatrix()
     except Prescription.DoesNotExist:
         raise Http404("prescription does not exist")
 
@@ -694,7 +695,7 @@ def PrescriptionAddView(request):
             p.lastmod_who = get_request().user
             p.lastmod_when = timezone.now()
             p.save()
-            create_pe(p.pk)
+            #create_pe(p.pk)
             log_addition(user, p, obj_type, msg)
             return redirect('prescription-detail', pk=p.pk)
         else:

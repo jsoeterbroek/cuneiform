@@ -1,5 +1,5 @@
 def log_addition(username, obj, object_type, message):
-    from core.models import CuneiformLogEntry, ADDITION
+    from log.models import CuneiformLogEntry, ADDITION
     return CuneiformLogEntry.objects.log_action(
         username=username,
         object_id=obj.pk,
@@ -10,7 +10,7 @@ def log_addition(username, obj, object_type, message):
 
 
 def log_change(username, obj, object_type, message):
-    from core.models import CuneiformLogEntry, CHANGE
+    from log.models import CuneiformLogEntry, CHANGE
     return CuneiformLogEntry.objects.log_action(
         username=username,
         object_id=obj.pk,
@@ -21,7 +21,7 @@ def log_change(username, obj, object_type, message):
 
 
 def log_deletion(username, obj, object_type, message):
-    from core.models import CuneiformLogEntry, DELETION
+    from log.models import CuneiformLogEntry, DELETION
     return CuneiformLogEntry.objects.log_action(
         username=username,
         object_type=object_type,
@@ -32,7 +32,7 @@ def log_deletion(username, obj, object_type, message):
 
 
 def log_doublecheck(username, obj, object_type, message):
-    from core.models import CuneiformLogEntry, DOUBLECHECK
+    from log.models import CuneiformLogEntry, DOUBLECHECK
     return CuneiformLogEntry.objects.log_action(
         username=username,
         object_type=object_type,
@@ -43,7 +43,7 @@ def log_doublecheck(username, obj, object_type, message):
 
 
 def log_signoff(username, obj, object_type, message):
-    from core.models import CuneiformLogEntry, SIGNOFF
+    from log.models import CuneiformLogEntry, SIGNOFF
     return CuneiformLogEntry.objects.log_action(
         username=username,
         object_type=object_type,

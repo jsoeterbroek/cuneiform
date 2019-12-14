@@ -161,7 +161,8 @@ class Client(models.Model):
 class PrescriptionManager(models.Manager):
     """ Prescription Model Manager """
 
-    def create_prescription(self, name, client, doctor, drug, remarks, start_date, end_date):
+    def create(self, *args, **kwargs):
+
         #initial 2-d numpy matrix 42 range, seven days, six periods
         arr = np.arange(42)
         zz = np.zeros(arr.shape)
@@ -169,8 +170,8 @@ class PrescriptionManager(models.Manager):
         matrix_bytes = pickle.dumps(npmatrix)
         matrix_base64 = base64.b64encode(matrix_bytes)
         matrix = matrix_base64
-        p = self.create(name=name, client=client, doctor=doctor, drug=drug, remarks=remarks, start_date=start_date, end_date=end_date, matrix=matrix)
-        return p
+        kwargs['matrix'] = matrix
+        return super(PrescriptionManager, self).create(*args, **kwargs)   
 
 class Prescription(models.Model):
     """ Prescription Model """

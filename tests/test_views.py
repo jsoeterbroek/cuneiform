@@ -59,7 +59,7 @@ class PrescriptionListViewTest(TestCase):
             firstname='firstname', lastname='testclient2',
             dateofbirth='1968-01-22', bsn='122475243'
         )
-        Prescription.objects.create_prescription(
+        Prescription.objects.create(
             name='prescription test one',
             client=c1,
             drug=d1,
