@@ -6,13 +6,15 @@ from django.contrib.auth.models import User
 #from django.utils import timezone
 from medslist.models import Drug, Doctor, Client, Prescription
 
-class DrugModelTest(TestCase):
+class ModelTest(TestCase):
 
     @classmethod
     def setUpTestData(cls):
         #print("setUpTestData: Run once to set up non-modified data for all class methods.")
-        #u1 = User.objects.create_user(username='user1', password='top_secret')
-        #u2 = User.objects.create_user(username='user2', password='top_secret')
+        u1 = User.objects.create_user(username='user1', password='top_secret')
+        u2 = User.objects.create_user(username='user2', password='top_secret')
+        u3 = User.objects.create_user(username='user3', password='top_secret')
+        u4 = User.objects.create_user(username='user4', password='top_secret')
         d1 = Drug.objects.create(
             name='paracetamol', ingredient='paracetamol', use='headache',
             sideeffects='more headaches', particularities='geen'
@@ -49,19 +51,25 @@ class DrugModelTest(TestCase):
         #print("setUp: Run once for every test method to setup clean data.")
         pass
 
-    def test_name_labels(self):
-        print("test_name_label: test name labels")
-        drug = Drug.objects.get(id=1)
-        self.assertEqual(drug.name, 'paracetamol')
+    def test_model_client_name_labels(self):
+        print("test_model_client_name_label")
         client = Client.objects.get(id=1)
         self.assertEqual(client.lastname, 'testclient')
+
+    def test_model_drug_name_labels(self):
+        print("test_model_drug_name_label")
+        drug = Drug.objects.get(id=1)
+        self.assertEqual(drug.name, 'paracetamol')
+
+    def test_model_prescription_name_labels(self):
+        print("test_model_prescription_name_label")
         prescription = Prescription.objects.get(id=1)
         self.assertEqual(prescription.name, 'prescription test one')
 
-    def test_prescription_lastmod(self):
-        print("test_prescription_lastmod: test prescription lastmod")
-        u3 = User.objects.create_user(username='user3', password='top_secret')
+    def test_model_prescription_lastmod(self):
+        print("test_model_prescription_lastmod")
         p1 = Prescription.objects.get(id=1)
+        u3 = User.objects.get(id=3)
         is_lastmod = p1.is_lastmod()
         self.assertEqual(is_lastmod, False)
         p1.name = "modified prescription test one"
@@ -70,7 +78,7 @@ class DrugModelTest(TestCase):
         is_lastmod = p1.is_lastmod()
         self.assertEqual(is_lastmod, True)
 
-    def test_prescription_lastdoublecheck(self):
+    def test_model_prescription_doublecheck(self):
         """
         scenario:
         user u3 is last one to modify a prescription
@@ -79,11 +87,11 @@ class DrugModelTest(TestCase):
           - #3 test that if prescription is doublechecked, the flag is set back to false, when
                a user has made (newer) modification
         """
-        print("test_prescription_lastdoublecheck: test prescription lastdoublecheck")
-        u3 = User.objects.create_user(username='user3', password='top_secret')
-        u4 = User.objects.create_user(username='user4', password='top_secret')
+        print("test_model_prescription_doublecheck")
         p1 = Prescription.objects.get(id=1)
         p1.name = "modified prescription test one for doublecheck"
+        u3 = User.objects.get(id=3)
+        u4 = User.objects.get(id=4)
         p1.set_lastmod(u3)
         p1.save()
         # subtest #1
@@ -102,7 +110,7 @@ class DrugModelTest(TestCase):
         is_doublecheck = p1.is_doublecheck()
         self.assertEqual(is_doublecheck, False)
 
-    def test_prescription_matrix(self):
+    def test_model_prescription_matrix(self):
         """
         scenario:
           - create a prescription with a (empty) matrix 
@@ -112,8 +120,7 @@ class DrugModelTest(TestCase):
           - #3 do the same via method update_matrix (which will be used 
                in views)
         """
-
-        print("test_prescription_matrix: test prescription matrix")
+        print("test_model_prescription_matrix")
         p1 = Prescription.objects.get(id=1)
         # subtest #1
         npmatrix_1 = p1.get_npmatrix()
@@ -133,9 +140,6 @@ class DrugModelTest(TestCase):
         v2 = int(np[3][5])
         self.assertEqual(v1, v2)
 
-
-    def test_prescription_auditlog(self):
-        print("test_prescription_auditlog: test prescription auditlog")
+    def test_model_prescription_auditlog(self):
+        print("test_model_prescription_auditlog")
         pass
-
-

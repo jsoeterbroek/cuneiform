@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load octicons %}
+
+{% block content %}
+<h2>logout</h2>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<div class="card" style="width: 50rem;">
+  <!--<img src="..." class="card-img-top" alt="...">-->
+  <div class="card-body">
+    <h5 class="card-title">{{ client.firstname }} {{ client.lastname }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted"> {{ client.dateofbirth }} </h6>
+    <p class="card-text">
+
+  <p>Logged out!</p>  
+  <a href="{% url 'login'%}">Click here to login again.</a>
+{% endblock %} 
+{% load static %}
+  </div>
+</div>
+
+{% endblock %}

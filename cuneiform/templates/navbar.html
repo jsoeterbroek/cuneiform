@@ -1,0 +1,54 @@
+{% load static %}
+<!--Navbar-->
+<nav class="navbar navbar-expand-sm bg-white">
+  <!-- Navbar brand -->
+  <a class="navbar-brand" href="{% url 'main-index' %}">
+  <img src="{% static "img/cuneiform_icon_60.png" %}" width="60" height="59" alt="cuneiform">
+  </a>
+
+  <!-- Collapse button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicNav">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="basicNav">
+    <ul class="navbar-nav mr-auto">
+	    <!--
+      <li class="nav-item active">
+          <a class="nav-link" href="{% url 'main-index' %}">Home <span class="sr-only">(current)</span> </a>
+      </li>
+	    -->
+
+    </ul>
+
+    <!-- right aligned -->
+    <ul class="navbar-nav ml-auto">
+
+   <!--  login/logout here -->
+   {% if user.is_authenticated %}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user.get_username }}</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="{% url 'user-profile' pk=user.pk %}">Profiel</a>
+          <a class="dropdown-item" href="{% url 'password_change' %}">Wachtwoord aanpassen</a>
+          <a class="dropdown-item" href="{% url 'logout'%}?next={{request.path}}">Logout</a>
+        </div>
+      </li>
+   {% else %}
+     <li class="nav-item"><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+   {% endif %} 
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle text-dark" href="{% url 'client' %}" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cuneiform</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	  <a class="dropdown-item" href="{% url 'info' %}">Info</a>
+	  <a class="dropdown-item" href="{% url 'versie' %}">Versie</a>
+	  <a class="dropdown-item" href="{% url 'feedback' %}">Feedback</a>
+	  <a class="dropdown-item" href="#">Licentie</a>
+        </div>
+      </li>
+
+    </ul>
+    </div>
+  </nav>
+  <!--/.Navbar-->

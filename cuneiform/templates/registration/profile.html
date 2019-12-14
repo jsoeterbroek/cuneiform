@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load octicons %}
+
+{% block content %}
+<h2>Profiel</h2>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<div class="card" style="width: 50rem;">
+  <!--<img src="..." class="card-img-top" alt="...">-->
+  <div class="card-body">
+    <h5 class="card-title">{{ user.username }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted"> </h6>
+    <p class="card-text">
+    <b>Voornaam:</b> {{ user.first_name }}<br>
+    <b>Achternaam:</b> {{ user.last_name }}
+     <br><br> 
+     <i>FIXME: list of actions for this user.</i>
+    
+    </p>
+  </div>
+</div>
+
+{% endblock %}

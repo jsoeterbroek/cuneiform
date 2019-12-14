@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load octicons %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<h2>Inloggen</h2>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<p>&nbsp;</p>
+<div class="card" style="width: 50rem;">
+  <!--<img src="..." class="card-img-top" alt="...">-->
+  <div class="card-body">
+    <h5 class="card-title"></h5>
+    <h6 class="card-subtitle mb-2 text-muted"></h6>
+    <p class="card-text">
+  {% if form.errors %}
+    <p>Your username and password didn't match. Please try again.</p>
+  {% endif %}
+  
+  {% if next %}
+    {% if user.is_authenticated %}
+      <p>Jouw account heeft niet voldoende rechten om deze pagina te zien. Om verder te gaan,
+      graag inloggen met een account wat voldoende permissies heeft.</p>
+    {% else %}
+      <p>Je moet eerst inloggen om deze pagina te zien.</p>
+    {% endif %}
+  {% endif %}
+  <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <table>
+      <tr>
+        <td>{{ form.username|as_crispy_field }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.password|as_crispy_field }}</td>
+      </tr>
+    </table>
+    <input type="hidden" name="next" value="{{ next }}" />
+    <button type="submit" class="btn btn-primary" value="login">Login</button>
+  </form>
+  <p>&nbsp;</p> 
+  {# Assumes you setup the password_reset view in your URLconf #}
+  <p><a href="{% url 'password_reset' %}">Wachtwoord vergeten?</a></p>
+    
+{% load static %}
+  </div>
+</div>
+
+{% endblock %}

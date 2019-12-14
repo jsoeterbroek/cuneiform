@@ -26,7 +26,7 @@ urlpatterns = [
     path('versie/', views.VersieView, name='versie'),
     path('info/', views.InfoView, name='info'),
     path('medslist/', include('medslist.urls'), name='medslist-index'),
-    #path('signoff/', include('signoff.urls'), name='signoff-index'),
+    path('signoff/', include('signoff.urls'), name='signoff-index'),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/profile/<int:pk>/', views.UserProfileView, name='user-profile'),

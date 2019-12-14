@@ -109,17 +109,17 @@ class PrescriptionForm(forms.ModelForm):
             'remarks': 'Eventuele extra opmerkingen (optioneel)',
         }
 
-class PrescriptionMatrixForm(forms.ModelForm):
-
-    def __init__(self, *args, **kwargs):
-        super(PrescriptionMatrixForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.template = 'layout/cuneiform_table_inline_form.html'
-        self.helper.form_id = 'PrescriptionMatrixForm'
-        self.helper.form_class = 'hmas_prescription_form'
-        self.helper.form_method = 'post'
-        self.helper.add_input(Submit('submit', 'Opslaan'))
-
-    class Meta:
-        model = Prescription
-        fields = {}
+#class PrescriptionMatrixForm(forms.ModelForm):
+#
+#    def __init__(self, *args, **kwargs):
+#        super(PrescriptionMatrixForm, self).__init__(*args, **kwargs)
+#        self.helper = FormHelper()
+#        self.helper.template = 'layout/cuneiform_table_inline_form.html'
+#        self.helper.form_id = 'PrescriptionMatrixForm'
+#        self.helper.form_class = 'hmas_prescription_form'
+#        self.helper.form_method = 'post'
+#        self.helper.add_input(Submit('submit', 'Opslaan'))
+#
+#    class Meta:
+#        model = Prescription
+#        fields = {}

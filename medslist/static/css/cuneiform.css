@@ -1,0 +1,50 @@
+﻿body {
+  min-height: 100vh; 
+}
+
+
+/* Octicon */
+.octicon {
+  display: inline-block;
+  vertical-align: text-top;
+  fill: darkgrey;
+}
+
+/* Forms */
+input[type=number]{
+  width: 55px;
+} 
+.hmas_prescription_form{
+  width: 55px;
+} 
+.cuneiform_prescription_form{
+  width: 55px;
+} 
+.select{
+  width: 250px;
+} 
+.dateinput{
+  width: 200px;
+} 
+.asteriskField {
+    display: none;
+}
+
+.footer-list-group-item {
+  overflow:hidden;  
+  position: relative;
+  display: block;
+  padding: -2px -4px;
+  margin-bottom: -1px;
+}
+
+.row {
+  margin-bottom: 50px;
+  display: flex;
+}
+
+.table-vcenter {
+  td {
+    vertical-align: middle;
+  }
+}

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load octicons %}
+{% block content %}
+{% load static %}
+<p>&nbsp;</p>
+
+<center><img src="{% static "img/cuneiform_logo_300.png" %}" width="300" height="138" alt="Cuneiform Logo"></center>
+<div class="jumbotron">
+  <p>Cuneiform is een systeem om binnen de woning de papieren medicijnlijsten te vervangen.
+   Het kan gebruikt worden voor de registratie van medicatieverstrekking, inclusief aftekenen, dubbelcontrole en waarschuwingen voor vergeten tijdige verstrekking.
+  </p> 
+</div>
+  <!-- Marketing messaging and featurettes 1
+  ================================================== -->
+
+  <div class="container marketing">
+    <!-- Three columns of text -->
+    <div class="row">
+      <div class="col-lg-4">
+	<a class="btn btn-sm" href="#url" role="button"> {% octicon "note"  height="140" class="large"  %} </a>
+        <h2>Registratie</h2>
+        <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+      </div><!-- /.col-lg-4 -->
+      <div class="col-lg-4">
+	<a class="btn btn-sm" href="#url" role="button"> {% octicon "checklist"  height="140" class="large"  %} </a>
+        <h2>Aftekenen</h2>
+        <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+      </div><!-- /.col-lg-4 -->
+      <div class="col-lg-4">
+	<a class="btn btn-sm" href="#url" role="button"> {% octicon "eye"  height="140" class="large" color=".hmas_color_1" %} </a>
+        <h2>Dubbelcontrole</h2>
+        <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+      </div><!-- /.col-lg-4 -->
+    </div><!-- /.row -->
+
+  <!-- Marketing messaging and featurettes 2
+  ================================================== -->
+
+    <!-- Three columns of text below the carousel -->
+    <div class="row">
+      <div class="col-lg-4">
+	<a class="btn btn-sm" href="#url" role="button"> {% octicon "book"  height="140" class="large"  %} </a>
+        <h2>Logboek</h2>
+        <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+      </div><!-- /.col-lg-4 -->
+      <div class="col-lg-4">
+	<a class="btn btn-sm" href="#url" role="button"> {% octicon "graph"  height="140" class="large"  %} </a>
+        <h2>Rapportage</h2>
+        <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+      </div><!-- /.col-lg-4 -->
+      <div class="col-lg-4">
+	<a class="btn btn-sm" href="#url" role="button"> {% octicon "device-mobile"  height="140" class="large"  %} </a>
+        <h2>Smartphone</h2>
+        <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+      </div><!-- /.col-lg-4 -->
+    </div><!-- /.row -->
+
+  </div><!-- /.container -->
+
+{% endblock %}

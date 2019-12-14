@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.messages import constants as messages
 #from log.models import CuneiformLogEntry, DRUG, CLIENT, PRESCRIPTION
 #from cuneiform.create_pe import create_pe, update_pe
-from .forms import PrescriptionForm, PrescriptionMatrixForm, ClientForm, DrugForm
+from .forms import PrescriptionForm, ClientForm, DrugForm
 from .models import Prescription, Client, Drug
 from .utils import log_addition, log_change, log_doublecheck
 from .get_current_user import get_request
@@ -212,7 +212,7 @@ def DrugEditView(request, pk):
     else:
         drug_initial_data = {
             'name': drug.name,
-            'werkzamestof': drug.werkzamestof,
+            'ingredient': drug.ingredient,
             'use': drug.use,
             'sideeffects': drug.sideeffects,
             'particularities': drug.particularities,
@@ -576,107 +576,107 @@ def PrescriptionEditView(request, pk):
     return render(request, 'prescription_edit.html', context)
 
 
-@login_required
-def PrescriptionMatrixEditView(request, pk):
-    """ Edit view (index) of Prescription object """
-    try:
-        prescription = Prescription.objects.get(pk=pk)
-    except Prescription.DoesNotExist:
-        raise Http404("prescription does not exist")
-
-    if request.method == "POST":
-        form = PrescriptionMatrixForm(request.POST)
-        if form.is_valid():
-            p = form.save(commit=False)
-
-            if not p.pk:
-                p.pk = prescription.pk
-            if not p.created:
-                p.created = prescription.created
-            if not p.name:
-                p.name = prescription.name
-            if not p.client_id:
-                p.client_id = prescription.client_id
-            if not p.doctor_id:
-                p.doctor_id = prescription.doctor_id
-            if not p.drug_id:
-                p.drug_id = prescription.drug_id
-            if not p.start_date:
-                p.start_date = prescription.start_date
-            if not p.end_date:
-                p.end_date = prescription.end_date
-            if not p.remarks:
-                p.remarks = prescription.remarks
-
-            user = get_request().user
-            obj_type = PRESCRIPTION
-            if p.doublecheck:
-                p.doublecheck = False
-                msg = "Prescriptie matrix %s is aangepast, dubbelcontrole vlag verwijderd " % prescription.name
-            else:
-                msg = "Prescriptie matrix %s is aangepast" % prescription.name
-            p.lastmod = True
-            p.lastmod_who = get_request().user
-            p.lastmod_when = timezone.now()
-            p.matrix = True
-            p.save()
-            update_pe(p.pk)
-            log_change(user, prescription, obj_type, msg)
-            return redirect('prescription-detail', pk=p.pk)
-        else:
-            messages.error(request, "Error: form not valid")
-
-    else:
-        prescription_matrix_initial_data = {
-            'name': prescription.name,
-            'client': prescription.client,
-            'drug': prescription.drug,
-            'doctor': prescription.doctor,
-            'start_date': prescription.start_date,
-            'end_date': prescription.end_date,
-            #'m_d00100_p00100': prescription.m_d00100_p00100,
-            #'m_d00200_p00100': prescription.m_d00200_p00100,
-            #'m_d00300_p00100': prescription.m_d00300_p00100,
-            #'m_d00400_p00100': prescription.m_d00400_p00100,
-            #'m_d00500_p00100': prescription.m_d00500_p00100,
-            #'m_d00600_p00100': prescription.m_d00600_p00100,
-            #'m_d00700_p00100': prescription.m_d00700_p00100,
-            #'m_d00100_p00200': prescription.m_d00100_p00200,
-            #'m_d00200_p00200': prescription.m_d00200_p00200,
-            #'m_d00300_p00200': prescription.m_d00300_p00200,
-            #'m_d00400_p00200': prescription.m_d00400_p00200,
-            #'m_d00500_p00200': prescription.m_d00500_p00200,
-            #'m_d00600_p00200': prescription.m_d00600_p00200,
-            #'m_d00700_p00200': prescription.m_d00700_p00200,
-            #'m_d00100_p00300': prescription.m_d00100_p00300,
-            #'m_d00200_p00300': prescription.m_d00200_p00300,
-            #'m_d00300_p00300': prescription.m_d00300_p00300,
-            #'m_d00400_p00300': prescription.m_d00400_p00300,
-            #'m_d00500_p00300': prescription.m_d00500_p00300,
-            #'m_d00600_p00300': prescription.m_d00600_p00300,
-            #'m_d00700_p00300': prescription.m_d00700_p00300,
-            #'m_d00100_p00400': prescription.m_d00100_p00400,
-            #'m_d00200_p00400': prescription.m_d00200_p00400,
-            #'m_d00300_p00400': prescription.m_d00300_p00400,
-            #'m_d00400_p00400': prescription.m_d00400_p00400,
-            #'m_d00500_p00400': prescription.m_d00500_p00400,
-            #'m_d00600_p00400': prescription.m_d00600_p00400,
-            #'m_d00700_p00400': prescription.m_d00700_p00400,
-            #'m_d00100_p00500': prescription.m_d00100_p00500,
-            #'m_d00200_p00500': prescription.m_d00200_p00500,
-            #'m_d00300_p00500': prescription.m_d00300_p00500,
-            #'m_d00400_p00500': prescription.m_d00400_p00500,
-            #'m_d00500_p00500': prescription.m_d00500_p00500,
-            #'m_d00600_p00500': prescription.m_d00600_p00500,
-            #'m_d00700_p00500': prescription.m_d00700_p00500,
-        }
-
-        form = PrescriptionMatrixForm(initial=prescription_matrix_initial_data)
-        context = {
-            'form': form,
-            'prescription': prescription,
-        }
-        return render(request, 'prescription_matrix_edit.html', context)
+#@login_required
+#def PrescriptionMatrixEditView(request, pk):
+#    """ Edit view (index) of Prescription object """
+#    try:
+#        prescription = Prescription.objects.get(pk=pk)
+#    except Prescription.DoesNotExist:
+#        raise Http404("prescription does not exist")
+#
+#    if request.method == "POST":
+#        form = PrescriptionMatrixForm(request.POST)
+#        if form.is_valid():
+#            p = form.save(commit=False)
+#
+#            if not p.pk:
+#                p.pk = prescription.pk
+#            if not p.created:
+#                p.created = prescription.created
+#            if not p.name:
+#                p.name = prescription.name
+#            if not p.client_id:
+#                p.client_id = prescription.client_id
+#            if not p.doctor_id:
+#                p.doctor_id = prescription.doctor_id
+#            if not p.drug_id:
+#                p.drug_id = prescription.drug_id
+#            if not p.start_date:
+#                p.start_date = prescription.start_date
+#            if not p.end_date:
+#                p.end_date = prescription.end_date
+#            if not p.remarks:
+#                p.remarks = prescription.remarks
+#
+#            user = get_request().user
+#            obj_type = PRESCRIPTION
+#            if p.doublecheck:
+#                p.doublecheck = False
+#                msg = "Prescriptie matrix %s is aangepast, dubbelcontrole vlag verwijderd " % prescription.name
+#            else:
+#                msg = "Prescriptie matrix %s is aangepast" % prescription.name
+#            p.lastmod = True
+#            p.lastmod_who = get_request().user
+#            p.lastmod_when = timezone.now()
+#            p.matrix = True
+#            p.save()
+#            update_pe(p.pk)
+#            log_change(user, prescription, obj_type, msg)
+#            return redirect('prescription-detail', pk=p.pk)
+#        else:
+#            messages.error(request, "Error: form not valid")
+#
+#    else:
+#        prescription_matrix_initial_data = {
+#            'name': prescription.name,
+#            'client': prescription.client,
+#            'drug': prescription.drug,
+#            'doctor': prescription.doctor,
+#            'start_date': prescription.start_date,
+#            'end_date': prescription.end_date,
+#            #'m_d00100_p00100': prescription.m_d00100_p00100,
+#            #'m_d00200_p00100': prescription.m_d00200_p00100,
+#            #'m_d00300_p00100': prescription.m_d00300_p00100,
+#            #'m_d00400_p00100': prescription.m_d00400_p00100,
+#            #'m_d00500_p00100': prescription.m_d00500_p00100,
+#            #'m_d00600_p00100': prescription.m_d00600_p00100,
+#            #'m_d00700_p00100': prescription.m_d00700_p00100,
+#            #'m_d00100_p00200': prescription.m_d00100_p00200,
+#            #'m_d00200_p00200': prescription.m_d00200_p00200,
+#            #'m_d00300_p00200': prescription.m_d00300_p00200,
+#            #'m_d00400_p00200': prescription.m_d00400_p00200,
+#            #'m_d00500_p00200': prescription.m_d00500_p00200,
+#            #'m_d00600_p00200': prescription.m_d00600_p00200,
+#            #'m_d00700_p00200': prescription.m_d00700_p00200,
+#            #'m_d00100_p00300': prescription.m_d00100_p00300,
+#            #'m_d00200_p00300': prescription.m_d00200_p00300,
+#            #'m_d00300_p00300': prescription.m_d00300_p00300,
+#            #'m_d00400_p00300': prescription.m_d00400_p00300,
+#            #'m_d00500_p00300': prescription.m_d00500_p00300,
+#            #'m_d00600_p00300': prescription.m_d00600_p00300,
+#            #'m_d00700_p00300': prescription.m_d00700_p00300,
+#            #'m_d00100_p00400': prescription.m_d00100_p00400,
+#            #'m_d00200_p00400': prescription.m_d00200_p00400,
+#            #'m_d00300_p00400': prescription.m_d00300_p00400,
+#            #'m_d00400_p00400': prescription.m_d00400_p00400,
+#            #'m_d00500_p00400': prescription.m_d00500_p00400,
+#            #'m_d00600_p00400': prescription.m_d00600_p00400,
+#            #'m_d00700_p00400': prescription.m_d00700_p00400,
+#            #'m_d00100_p00500': prescription.m_d00100_p00500,
+#            #'m_d00200_p00500': prescription.m_d00200_p00500,
+#            #'m_d00300_p00500': prescription.m_d00300_p00500,
+#            #'m_d00400_p00500': prescription.m_d00400_p00500,
+#            #'m_d00500_p00500': prescription.m_d00500_p00500,
+#            #'m_d00600_p00500': prescription.m_d00600_p00500,
+#            #'m_d00700_p00500': prescription.m_d00700_p00500,
+#        }
+#
+#        form = PrescriptionMatrixForm(initial=prescription_matrix_initial_data)
+#        context = {
+#            'form': form,
+#            'prescription': prescription,
+#        }
+#        return render(request, 'prescription_matrix_edit.html', context)
 
 
 @login_required

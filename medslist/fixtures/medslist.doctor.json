@@ -1,0 +1,20 @@
+[
+{
+  "model": "medslist.doctor",
+  "pk": 1,
+  "fields": {
+    "created": "2019-11-24T10:59:07.864Z",
+    "firstname": "Dokter",
+    "lastname": "De Bouvrie"
+  }
+},
+{
+  "model": "medslist.doctor",
+  "pk": 2,
+  "fields": {
+    "created": "2019-11-24T17:16:59.937Z",
+    "firstname": "Henk",
+    "lastname": "Grootebroek"
+  }
+}
+]

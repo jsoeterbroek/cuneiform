@@ -19,6 +19,7 @@ ALLOWED_HOSTS = ['localhost', 'h2858779.stratoserver.net', 'cuneiform.healthcare
 # Application definition
 INSTALLED_APPS = [
     'medslist.apps.MedslistConfig',
+    'signoff.apps.SignoffConfig',
     'log.apps.LogConfig',
     'django.contrib.admin',
     'django.contrib.auth',
