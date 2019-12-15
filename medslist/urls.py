@@ -8,6 +8,7 @@ urlpatterns = [
     path('prescription/add/', views.PrescriptionAddView, name='prescription-add'),
     path('prescription/<int:pk>/', views.PrescriptionDetailView, name='prescription-detail'),
     path('prescription/<int:pk>/edit/', views.PrescriptionEditView, name='prescription-edit'),
+    path('prescription/<int:pk>/matrixedit', views.PrescriptionMatrixEditView, name='prescription-matrix-edit'),
     path('prescription/<int:pk>/doublecheck/', views.PrescriptionDoublecheckView, name='prescription-doublecheck'),
     path('prescription/<int:pk>/doublechecknext/', views.PrescriptionDoublecheckNextView, name='prescription-doublecheck-next'),
     path('client/', views.ClientListView, name='client'),

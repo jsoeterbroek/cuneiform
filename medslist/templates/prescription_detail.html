@@ -35,7 +35,7 @@
 </tr><tr>
 	<td><b>Matrix:</b></td><td> &nbsp;</td>
 </tr><tr>
-	<td colspan="2"> {% include "prescription_detail_matrix.html" %} </td>
+	<td colspan="2"> {% include "prescription_matrix_detail.html" %} </td>
 </tr><tr>
 	<td colspan="2"> {{ prescription.remarks }}</td>
 </tr>
@@ -44,6 +44,7 @@
 <p>
 
      <a href="{% url 'prescription-edit' pk=prescription.pk %}" class="btn btn-primary" role="button">Aanpassen</a>
+     <a href="{% url 'prescription-matrix-edit' pk=prescription.pk %}" class="btn btn-primary" role="button">Matrix Aanpassen</a>
     {% if doublecheck %}
       <a href="#" class="btn btn-primary disabled" role="button" aria-disabled="true">Dubbelcontrole</a>
     {% else %}

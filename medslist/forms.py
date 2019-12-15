@@ -1,7 +1,9 @@
 from django import forms
 #from django.contrib import admin
+#from django_jsonforms.forms import JSONSchemaField
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Div, Field, Submit
+#from crispy_forms.layout import Layout, Div, Field, Submit
+from crispy_forms.layout import Submit
 from .models import Prescription, Client, Drug
 
 class ClientForm(forms.ModelForm):
@@ -109,17 +111,16 @@ class PrescriptionForm(forms.ModelForm):
             'remarks': 'Eventuele extra opmerkingen (optioneel)',
         }
 
-#class PrescriptionMatrixForm(forms.ModelForm):
-#
-#    def __init__(self, *args, **kwargs):
-#        super(PrescriptionMatrixForm, self).__init__(*args, **kwargs)
-#        self.helper = FormHelper()
-#        self.helper.template = 'layout/cuneiform_table_inline_form.html'
-#        self.helper.form_id = 'PrescriptionMatrixForm'
-#        self.helper.form_class = 'hmas_prescription_form'
-#        self.helper.form_method = 'post'
-#        self.helper.add_input(Submit('submit', 'Opslaan'))
-#
-#    class Meta:
-#        model = Prescription
-#        fields = {}
+class PrescriptionMatrixForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(PrescriptionMatrixForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_id = 'PrescriptionMatrixForm'
+        self.helper.form_class = 'cuneiform_prescription_form'
+        self.helper.form_method = 'post'
+        self.helper.add_input(Submit('submit', 'Opslaan'))
+
+    class Meta:
+        model = Prescription
+        fields = []

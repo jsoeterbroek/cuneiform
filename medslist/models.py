@@ -162,7 +162,6 @@ class PrescriptionManager(models.Manager):
     """ Prescription Model Manager """
 
     def create(self, *args, **kwargs):
-
         #initial 2-d numpy matrix 42 range, seven days, six periods
         arr = np.arange(42)
         zz = np.zeros(arr.shape)
@@ -171,7 +170,7 @@ class PrescriptionManager(models.Manager):
         matrix_base64 = base64.b64encode(matrix_bytes)
         matrix = matrix_base64
         kwargs['matrix'] = matrix
-        return super(PrescriptionManager, self).create(*args, **kwargs)   
+        return super(PrescriptionManager, self).create(*args, **kwargs)
 
 class Prescription(models.Model):
     """ Prescription Model """
@@ -205,49 +204,65 @@ class Prescription(models.Model):
     def __str__(self):
         return self.name
 
+    def init_matrix(self):
+        #initial 2-d numpy matrix 42 range, seven days, six periods
+        arr = np.arange(42)
+        zz = np.zeros(arr.shape)
+        npmatrix = zz.reshape(6, 7) # six periods, seven days
+        matrix_bytes = pickle.dumps(npmatrix)
+        matrix_base64 = base64.b64encode(matrix_bytes)
+        init_matrix = matrix_base64
+        self.matrix = init_matrix
+
     def update_matrix(self, period, day, value):
         """
         takes 3 arguments:
-         - period (one of: 'p00100','p00200','p00300','p00400','p00500','p00600') 
+         - period (one of: 'p00100','p00200','p00300','p00400','p00500','p00600')
          - day (one of: 'mon','tue','wed','thu','fri','sat','sun')
          - value
         e.g.:
         p1.update_matrix('p00400', 'sat', 12) # value 12 on 4th period on saturday
         """
-        valid_periods = {'p00100','p00200','p00300','p00400','p00500','p00600'}
+        valid_periods = {'p00100', 'p00200', 'p00300', 'p00400', 'p00500', 'p00600'}
         if period not in valid_periods:
             raise ValueError("results: period must be one of %s." % valid_periods)
         valid_days = {'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'}
         if day not in valid_days:
             raise ValueError("results: day must be one of %s." % valid_days)
-        df = self.get_pdfmatrix()
+        df = self.get_matrix_as_df()
         df.at[period, day] = value
-        self.set_pdfmatrix(df)
+        self.set_matrix_from_df(df)
 
-    def get_npmatrix(self):
+    def get_matrix_as_np(self):
         """retrieve matrix from database, return a numpy 2d array"""
         matrix_bytes = base64.b64decode(self.matrix)
-        npmatrix = pickle.loads(matrix_bytes)
-        return npmatrix
+        matrixnp = pickle.loads(matrix_bytes)
+        return matrixnp
 
-    def get_pdfmatrix(self):
-        """argument numpy matrix, return a pandas dataframe"""
-        _npmatrix = self.get_npmatrix()
+    def get_matrix_as_df(self):
+        """get matrix from database (as numpy 2d array), return a pandas dataframe"""
+        matrixnp = self.get_matrix_as_np()
         column_names = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
         row_names = ['p00100', 'p00200', 'p00300', 'p00400', 'p00500', 'p00600']
-        pdfmatrix = pd.DataFrame(_npmatrix, columns=column_names, index=row_names)
-        return pdfmatrix
+        matrixdf = pd.DataFrame(matrixnp, columns=column_names, index=row_names)
+        return matrixdf
 
-    def set_npmatrix(self, _npmatrix):
+    def get_matrix_as_dict(self):
+        """get matrix from database (as pandas dataframe), return a python dict"""
+        matrixdf = self.get_matrix_as_df()
+        matrixdict = matrixdf.to_dict(orient='dict')
+        return matrixdict
+
+    def set_matrix_from_np(self, matrixnp):
         """set numpy matrix to db"""
-        matrix_bytes = pickle.dumps(_npmatrix)
+        matrix_bytes = pickle.dumps(matrixnp)
         matrix_base64 = base64.b64encode(matrix_bytes)
         self.matrix = matrix_base64
 
-    def set_pdfmatrix(self, _pdfmatrix):
+    def set_matrix_from_df(self, matrixdf):
         """convert pandas dataframe to numpy, then set to db"""
-        _npmatrix = _pdfmatrix.to_numpy()
-        self.set_npmatrix(_npmatrix)
+        matrixnp = matrixdf.to_numpy()
+        self.set_matrix_from_np(matrixnp)
 
     def is_lastmod(self):
         return self.lastmod

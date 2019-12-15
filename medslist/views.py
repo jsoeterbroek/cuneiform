@@ -13,23 +13,20 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.messages import constants as messages
 from log.models import CuneiformLogEntry, DRUG, CLIENT, PRESCRIPTION
 #from cuneiform.create_pe import create_pe, update_pe
-from .forms import PrescriptionForm, ClientForm, DrugForm
+from .forms import PrescriptionForm, PrescriptionMatrixForm, ClientForm, DrugForm
 from .models import Prescription, Client, Drug
 from .utils import log_addition, log_change, log_doublecheck
 from .get_current_user import get_request
 
-
 def index(request):
     """ index """
     return render(request, 'medslist_index.html')
-
 
 @login_required
 def UserProfileView(request):
     """ view """
     context = {}
     return render(request, 'accounts/profile.html', context)
-
 
 # mag alleen door TTV-ers gezien worden
 # if statement in template
@@ -50,7 +47,6 @@ def LogListView(request):
     context = {'plist': plist}
     return render(request, 'log/log_list.html', context)
 
-
 @login_required
 def OverviewDoublecheckListView(request):
     """ not emplty"""
@@ -59,7 +55,6 @@ def OverviewDoublecheckListView(request):
         'list': list_latest,
     }
     return render(request, 'overview_doublecheck_list.html', context)
-
 
 @login_required
 def DrugListView(request):
@@ -77,7 +72,6 @@ def DrugListView(request):
 
     context = {'plist': plist}
     return render(request, 'drug_index.html', context)
-
 
 @login_required
 def DrugDoublecheckView(request, pk):
@@ -99,7 +93,6 @@ def DrugDoublecheckView(request, pk):
     }
     return render(request, 'drug_doublecheck.html', context)
 
-
 @login_required
 def DrugDoublecheckNextView(request, pk):
     """ DoublecheckNext view of Drug object """
@@ -117,7 +110,6 @@ def DrugDoublecheckNextView(request, pk):
     drug.save()
     log_doublecheck(user, drug, obj_type, msg)
     return redirect('drug-detail', pk=drug.pk)
-
 
 @login_required
 def DrugDetailView(request, pk):
@@ -150,7 +142,6 @@ def DrugDetailView(request, pk):
         'doublecheck_when': doublecheck_when,
     }
     return render(request, 'drug_detail.html', context)
-
 
 @login_required
 def DrugAddView(request):
@@ -337,8 +328,6 @@ def ClientAddView(request):
             p.save()
             log_addition(user, p, obj_type, msg)
             return redirect('client-detail', pk=p.pk)
-        else:
-            messages.error(request, "Error: form not valid")
     else:
         form = ClientForm()
         context = {
@@ -491,7 +480,6 @@ def PrescriptionEditView(request, pk):
 
     try:
         prescription = Prescription.objects.get(pk=pk)
-        df = prescription.get_pdfmatrix()
     except Prescription.DoesNotExist:
         raise Http404("prescription does not exist")
 
@@ -554,11 +542,9 @@ def PrescriptionEditView(request, pk):
             p.lastmod_who = get_request().user
             p.lastmod_when = timezone.now()
             p.save()
-            update_pe(p.pk)
+            #update_pe(p.pk)
             log_change(user, prescription, obj_type, msg)
             return redirect('prescription-detail', pk=p.pk)
-        else:
-            messages.error(request, "Error: form not valid")
     else:
         prescription_initial_data = {
             'name': prescription.name,
@@ -577,107 +563,95 @@ def PrescriptionEditView(request, pk):
     return render(request, 'prescription_edit.html', context)
 
 
-#@login_required
-#def PrescriptionMatrixEditView(request, pk):
-#    """ Edit view (index) of Prescription object """
-#    try:
-#        prescription = Prescription.objects.get(pk=pk)
-#    except Prescription.DoesNotExist:
-#        raise Http404("prescription does not exist")
-#
-#    if request.method == "POST":
-#        form = PrescriptionMatrixForm(request.POST)
-#        if form.is_valid():
-#            p = form.save(commit=False)
-#
-#            if not p.pk:
-#                p.pk = prescription.pk
-#            if not p.created:
-#                p.created = prescription.created
-#            if not p.name:
-#                p.name = prescription.name
-#            if not p.client_id:
-#                p.client_id = prescription.client_id
-#            if not p.doctor_id:
-#                p.doctor_id = prescription.doctor_id
-#            if not p.drug_id:
-#                p.drug_id = prescription.drug_id
-#            if not p.start_date:
-#                p.start_date = prescription.start_date
-#            if not p.end_date:
-#                p.end_date = prescription.end_date
-#            if not p.remarks:
-#                p.remarks = prescription.remarks
-#
-#            user = get_request().user
-#            obj_type = PRESCRIPTION
-#            if p.doublecheck:
-#                p.doublecheck = False
-#                msg = "Prescriptie matrix %s is aangepast, dubbelcontrole vlag verwijderd " % prescription.name
-#            else:
-#                msg = "Prescriptie matrix %s is aangepast" % prescription.name
-#            p.lastmod = True
-#            p.lastmod_who = get_request().user
-#            p.lastmod_when = timezone.now()
-#            p.matrix = True
-#            p.save()
-#            update_pe(p.pk)
-#            log_change(user, prescription, obj_type, msg)
-#            return redirect('prescription-detail', pk=p.pk)
-#        else:
-#            messages.error(request, "Error: form not valid")
-#
-#    else:
-#        prescription_matrix_initial_data = {
-#            'name': prescription.name,
-#            'client': prescription.client,
-#            'drug': prescription.drug,
-#            'doctor': prescription.doctor,
-#            'start_date': prescription.start_date,
-#            'end_date': prescription.end_date,
-#            #'m_d00100_p00100': prescription.m_d00100_p00100,
-#            #'m_d00200_p00100': prescription.m_d00200_p00100,
-#            #'m_d00300_p00100': prescription.m_d00300_p00100,
-#            #'m_d00400_p00100': prescription.m_d00400_p00100,
-#            #'m_d00500_p00100': prescription.m_d00500_p00100,
-#            #'m_d00600_p00100': prescription.m_d00600_p00100,
-#            #'m_d00700_p00100': prescription.m_d00700_p00100,
-#            #'m_d00100_p00200': prescription.m_d00100_p00200,
-#            #'m_d00200_p00200': prescription.m_d00200_p00200,
-#            #'m_d00300_p00200': prescription.m_d00300_p00200,
-#            #'m_d00400_p00200': prescription.m_d00400_p00200,
-#            #'m_d00500_p00200': prescription.m_d00500_p00200,
-#            #'m_d00600_p00200': prescription.m_d00600_p00200,
-#            #'m_d00700_p00200': prescription.m_d00700_p00200,
-#            #'m_d00100_p00300': prescription.m_d00100_p00300,
-#            #'m_d00200_p00300': prescription.m_d00200_p00300,
-#            #'m_d00300_p00300': prescription.m_d00300_p00300,
-#            #'m_d00400_p00300': prescription.m_d00400_p00300,
-#            #'m_d00500_p00300': prescription.m_d00500_p00300,
-#            #'m_d00600_p00300': prescription.m_d00600_p00300,
-#            #'m_d00700_p00300': prescription.m_d00700_p00300,
-#            #'m_d00100_p00400': prescription.m_d00100_p00400,
-#            #'m_d00200_p00400': prescription.m_d00200_p00400,
-#            #'m_d00300_p00400': prescription.m_d00300_p00400,
-#            #'m_d00400_p00400': prescription.m_d00400_p00400,
-#            #'m_d00500_p00400': prescription.m_d00500_p00400,
-#            #'m_d00600_p00400': prescription.m_d00600_p00400,
-#            #'m_d00700_p00400': prescription.m_d00700_p00400,
-#            #'m_d00100_p00500': prescription.m_d00100_p00500,
-#            #'m_d00200_p00500': prescription.m_d00200_p00500,
-#            #'m_d00300_p00500': prescription.m_d00300_p00500,
-#            #'m_d00400_p00500': prescription.m_d00400_p00500,
-#            #'m_d00500_p00500': prescription.m_d00500_p00500,
-#            #'m_d00600_p00500': prescription.m_d00600_p00500,
-#            #'m_d00700_p00500': prescription.m_d00700_p00500,
-#        }
-#
-#        form = PrescriptionMatrixForm(initial=prescription_matrix_initial_data)
-#        context = {
-#            'form': form,
-#            'prescription': prescription,
-#        }
-#        return render(request, 'prescription_matrix_edit.html', context)
+@login_required
+def PrescriptionMatrixEditView(request, pk):
+    """ Edit view (index) of Prescription object """
+    try:
+        prescription = Prescription.objects.get(pk=pk)
+
+        if not prescription.matrix:
+            prescription.init_matrix()
+            prescription.save()
+        #matrixdf = prescription.get_matrix_as_df()
+        #matrixjson = matrixdf.to_json()
+        matrixnp = prescription.get_matrix_as_np()
+        matrixdict = prescription.get_matrix_as_dict()
+    except Prescription.DoesNotExist:
+        raise Http404("prescription does not exist")
+
+    if request.method == "POST":
+        form = PrescriptionMatrixForm(request.POST)
+        if form.is_valid():
+            p = form.save(commit=False)
+
+            if not p.pk:
+                p.pk = prescription.pk
+            if not p.created:
+                p.created = prescription.created
+            if not p.name:
+                p.name = prescription.name
+            if not p.client_id:
+                p.client_id = prescription.client_id
+            if not p.doctor_id:
+                p.doctor_id = prescription.doctor_id
+            if not p.drug_id:
+                p.drug_id = prescription.drug_id
+            if not p.start_date:
+                p.start_date = prescription.start_date
+            if not p.end_date:
+                p.end_date = prescription.end_date
+            if not p.remarks:
+                p.remarks = prescription.remarks
+
+            user = get_request().user
+            obj_type = PRESCRIPTION
+            if p.doublecheck:
+                p.doublecheck = False
+                msg = "Prescriptie matrix %s is aangepast, dubbelcontrole vlag verwijderd " % prescription.name
+            else:
+                msg = "Prescriptie matrix %s is aangepast" % prescription.name
+            p.lastmod = True
+            p.lastmod_who = get_request().user
+            p.lastmod_when = timezone.now()
+            p.save()
+            #prescription = Prescription.objects.get(pk=pk)
+            #df = prescription.get_pdfmatrix()
+            #update_pe(p.pk)
+            #log_change(user, prescription, obj_type, msg)
+            return redirect('prescription-detail', pk=p.pk)
+        else:
+            messages.error(request, "Error: form not valid")
+
+    else:
+        prescription_matrix_initial_data = {
+            'name': prescription.name,
+            'client': prescription.client,
+            'drug': prescription.drug,
+            'doctor': prescription.doctor,
+            'start_date': prescription.start_date,
+            'end_date': prescription.end_date,
+        }
+
+
+        matrix_p00100 = matrixnp[0].tolist()
+        matrix_p00200 = matrixnp[1].tolist()
+        matrix_p00300 = matrixnp[2].tolist()
+        matrix_p00400 = matrixnp[3].tolist()
+        matrix_p00500 = matrixnp[4].tolist()
+        matrix_p00600 = matrixnp[5].tolist()
+        form = PrescriptionMatrixForm(initial=prescription_matrix_initial_data)
+        context = {
+            'form': form,
+            'prescription': prescription,
+            'matrixdict': matrixdict,
+            'matrix_p00100': matrix_p00100,
+            'matrix_p00200': matrix_p00200,
+            'matrix_p00300': matrix_p00300,
+            'matrix_p00400': matrix_p00400,
+            'matrix_p00500': matrix_p00500,
+            'matrix_p00600': matrix_p00600,
+        }
+        return render(request, 'prescription_matrix_edit.html', context)
 
 
 @login_required
@@ -695,12 +669,12 @@ def PrescriptionAddView(request):
             p.lastmod_who = get_request().user
             p.lastmod_when = timezone.now()
             p.save()
+            #prescription = Prescription.objects.get(pk=p.pk)
+            #prescription.init_matrix()
+            #df = prescription.get_pdfmatrix()
             #create_pe(p.pk)
             log_addition(user, p, obj_type, msg)
             return redirect('prescription-detail', pk=p.pk)
-        else:
-            messages.error(request, "Error: form not valid")
-
     else:
         form = PrescriptionForm()
         context = {
