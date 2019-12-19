@@ -138,20 +138,20 @@ class ModelTest(TestCase):
         print("test_model_prescription_matrix")
         p1 = Prescription.objects.get(id=1)
         # subtest #1
-        npmatrix_1 = p1.get_npmatrix()
-        p1.set_npmatrix(npmatrix_1)
-        npmatrix_2 = p1.get_npmatrix()
+        npmatrix_1 = p1.get_matrix_as_np()
+        p1.set_matrix_from_np(npmatrix_1)
+        npmatrix_2 = p1.get_matrix_as_np()
         self.assertEqual(npmatrix_1.all(), npmatrix_2.all())
         # subtest #2
-        pd_dataframe1 = p1.get_pdfmatrix()
+        pd_dataframe1 = p1.get_matrix_as_df()
         pd_dataframe1.at['p00500','mon'] = 10
-        p1.set_pdfmatrix(pd_dataframe1)
+        p1.set_matrix_from_df(pd_dataframe1)
         # subtest #3
         v1 = 12
         with self.assertRaises(ValueError):
             p1.update_matrix('10400', 'sat', v1) # should raise value error (wrong period)
         p1.update_matrix('p00400', 'sat', v1) # value 12 on 4th period on saturday
-        np = p1.get_npmatrix()
+        np = p1.get_matrix_as_np()
         v2 = int(np[3][5])
         self.assertEqual(v1, v2)
 
