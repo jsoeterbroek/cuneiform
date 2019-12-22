@@ -1,57 +1,16 @@
-    <table id="PrescriptionMatrixForm_table" class="table table-vcenter table-striped">
-		<tr>
-			<td><b></b></td>
-			<td><b>M</b></td>
-			<td><b>D</b></td>
-			<td><b>W</b></td>
-			<td><b>D</b></td>
-			<td><b>V</b></td>
-			<td><b>Z</b></td>
-			<td><b>Z</b></td>
-		</tr> <tr>
-			<td>07:00</td>
-			<td>{% if prescription.m_d00100_p00100 != 0 %}{{prescription.m_d00100_p00100}}{% else %} - {% endif %}</td>
-			<td>{% if prescription.m_d00200_p00100 != 0 %}{{prescription.m_d00200_p00100}}{% else %} - {% endif %}</td>
-			<td>{% if prescription.m_d00300_p00100 != 0 %}{{prescription.m_d00300_p00100}}{% else %} - {% endif %}</td>
-			<td>{% if prescription.m_d00400_p00100 != 0 %}{{prescription.m_d00400_p00100}}{% else %} - {% endif %}</td>
-			<td>{% if prescription.m_d00500_p00100 != 0 %}{{prescription.m_d00500_p00100}}{% else %} - {% endif %}</td>
-			<td>{% if prescription.m_d00600_p00100 != 0 %}{{prescription.m_d00600_p00100}}{% else %} - {% endif %}</td>
-			<td>{% if prescription.m_d00700_p00100 != 0 %}{{prescription.m_d00700_p00100}}{% else %} - {% endif %}</td>
-		</tr> <tr>
-			<td>08:00</td>
-			<td>{% if prescription.m_d00100_p00200 != 0 %}{{prescription.m_d00100_p00200}}{% else %} - {% endif %}</td>
-			<td>{% if prescription.m_d00200_p00200 != 0 %}{{prescription.m_d00200_p00200}}{% else %} - {% endif %}</td>
-			<td>{% if prescription.m_d00300_p00200 != 0 %}{{prescription.m_d00300_p00200}}{% else %} - {% endif %}</td>
-			<td>{% if prescription.m_d00400_p00200 != 0 %}{{prescription.m_d00400_p00200}}{% else %} - {% endif %}</td>
-			<td>{% if prescription.m_d00500_p00200 != 0 %}{{prescription.m_d00500_p00200}}{% else %} - {% endif %}</td>
-			<td>{% if prescription.m_d00600_p00200 != 0 %}{{prescription.m_d00600_p00200}}{% else %} - {% endif %}</td>
-			<td>{% if prescription.m_d00700_p00200 != 0 %}{{prescription.m_d00700_p00200}}{% else %} - {% endif %}</td>
-		</tr> <tr>
-			<td>12:00</td>
-			<td>{% if prescription.m_d00100_p00300 != 0 %}{{prescription.m_d00100_p00300}}{% else %} - {% endif %}</td>
-			<td>{% if prescription.m_d00200_p00300 != 0 %}{{prescription.m_d00200_p00300}}{% else %} - {% endif %}</td>
-			<td>{% if prescription.m_d00300_p00300 != 0 %}{{prescription.m_d00300_p00300}}{% else %} - {% endif %}</td>
-			<td>{% if prescription.m_d00400_p00300 != 0 %}{{prescription.m_d00400_p00300}}{% else %} - {% endif %}</td>
-			<td>{% if prescription.m_d00500_p00300 != 0 %}{{prescription.m_d00500_p00300}}{% else %} - {% endif %}</td>
-			<td>{% if prescription.m_d00600_p00300 != 0 %}{{prescription.m_d00600_p00300}}{% else %} - {% endif %}</td>
-			<td>{% if prescription.m_d00700_p00300 != 0 %}{{prescription.m_d00700_p00300}}{% else %} - {% endif %}</td>
-		</tr> <tr>
-			<td>17:00</td>
-			<td>{% if prescription.m_d00100_p00400 != 0 %}{{prescription.m_d00100_p00400}}{% else %} - {% endif %}</td>
-			<td>{% if prescription.m_d00200_p00400 != 0 %}{{prescription.m_d00200_p00400}}{% else %} - {% endif %}</td>
-			<td>{% if prescription.m_d00300_p00400 != 0 %}{{prescription.m_d00300_p00400}}{% else %} - {% endif %}</td>
-			<td>{% if prescription.m_d00400_p00400 != 0 %}{{prescription.m_d00400_p00400}}{% else %} - {% endif %}</td>
-			<td>{% if prescription.m_d00500_p00400 != 0 %}{{prescription.m_d00500_p00400}}{% else %} - {% endif %}</td>
-			<td>{% if prescription.m_d00600_p00400 != 0 %}{{prescription.m_d00600_p00400}}{% else %} - {% endif %}</td>
-			<td>{% if prescription.m_d00700_p00400 != 0 %}{{prescription.m_d00700_p00400}}{% else %} - {% endif %}</td>
-		</tr> <tr>
-			<td>21:00</td>
-			<td>{% if prescription.m_d00100_p00500 != 0 %}{{prescription.m_d00100_p00500}}{% else %} - {% endif %}</td>
-			<td>{% if prescription.m_d00200_p00500 != 0 %}{{prescription.m_d00200_p00500}}{% else %} - {% endif %}</td>
-			<td>{% if prescription.m_d00300_p00500 != 0 %}{{prescription.m_d00300_p00500}}{% else %} - {% endif %}</td>
-			<td>{% if prescription.m_d00400_p00500 != 0 %}{{prescription.m_d00400_p00500}}{% else %} - {% endif %}</td>
-			<td>{% if prescription.m_d00500_p00500 != 0 %}{{prescription.m_d00500_p00500}}{% else %} - {% endif %}</td>
-			<td>{% if prescription.m_d00600_p00500 != 0 %}{{prescription.m_d00600_p00500}}{% else %} - {% endif %}</td>
-			<td>{% if prescription.m_d00700_p00500 != 0 %}{{prescription.m_d00700_p00500}}{% else %} - {% endif %}</td>
-		</tr>
-    </table>
+<table border=0>
+<tr>
+{% for daykey, dayvalue in matrixodict.items %}
+<td><b>{{ daykey }}</b>
+        <table border=0>
+        {% for periodkey, periodvalue in dayvalue.items %}
+            <tr>
+        <td>{{periodvalue}}</td>
+            </tr>
+        {% endfor %}
+        </table>
+</td>
+
+{% endfor %}
+</tr>
+</table>

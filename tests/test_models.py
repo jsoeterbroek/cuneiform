@@ -45,7 +45,7 @@ class ModelTest(TestCase):
             remarks='remark',
             start_date='2019-11-10',
             end_date='2019-12-30'
-	)
+        )
 
     def setUp(self):
         #print("setUp: Run once for every test method to setup clean data.")
@@ -71,7 +71,7 @@ class ModelTest(TestCase):
             remarks='remark',
             start_date='2019-11-10',
             end_date='2019-12-30'
-	)
+        )
         #p3 = Prescription.objects.get(id=3)
         #df = p3.get_pdfmatrix()
         #print(df)
@@ -128,11 +128,11 @@ class ModelTest(TestCase):
     def test_model_prescription_matrix(self):
         """
         scenario:
-          - create a prescription with a (empty) matrix 
+          - create a prescription with a (empty) matrix
           - #1 get and set numpy empty matrix
           - #2 get matrix as pandas dataframe, change value and
                set back to db
-          - #3 do the same via method update_matrix (which will be used 
+          - #3 do the same via method update_matrix (which will be used
                in views)
         """
         print("test_model_prescription_matrix")
@@ -144,7 +144,7 @@ class ModelTest(TestCase):
         self.assertEqual(npmatrix_1.all(), npmatrix_2.all())
         # subtest #2
         pd_dataframe1 = p1.get_matrix_as_df()
-        pd_dataframe1.at['p00500','mon'] = 10
+        pd_dataframe1.at['p00500', 'mon'] = 10
         p1.set_matrix_from_df(pd_dataframe1)
         # subtest #3
         v1 = 12

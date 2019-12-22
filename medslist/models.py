@@ -3,6 +3,7 @@ import uuid
 #from datetime import datetime
 import pickle
 import base64
+from collections import OrderedDict
 import numpy as np
 import pandas as pd
 from django.db import models
@@ -204,6 +205,12 @@ class Prescription(models.Model):
     def __str__(self):
         return self.name
 
+    def has_matrix(self):
+        if self.matrix is None:
+            return False
+        else:
+            return True
+
     def init_matrix(self):
         #initial 2-d numpy matrix 42 range, seven days, six periods
         arr = np.arange(42)
@@ -233,8 +240,31 @@ class Prescription(models.Model):
         df.at[period, day] = value
         self.set_matrix_from_df(df)
 
+    def get_matrix_field_value(self, period, day, dtype='int'):
+        """
+        takes 2 arguments:
+         - period (one of: 'p00100','p00200','p00300','p00400','p00500','p00600')
+         - day (one of: 'mon','tue','wed','thu','fri','sat','sun')
+
+        returns value of field
+        """
+        valid_periods = {'p00100', 'p00200', 'p00300', 'p00400', 'p00500', 'p00600'}
+        if period not in valid_periods:
+            raise ValueError("results: period must be one of %s." % valid_periods)
+        valid_days = {'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'}
+        if day not in valid_days:
+            raise ValueError("results: day must be one of %s." % valid_days)
+        df = self.get_matrix_as_df()
+        value = df.at[period, day]
+        if dtype == 'int':
+            return int(value)
+        else:
+            return value
+
     def get_matrix_as_np(self):
         """retrieve matrix from database, return a numpy 2d array"""
+        if not self.has_matrix:
+            self.init_matrix()
         matrix_bytes = base64.b64decode(self.matrix)
         matrixnp = pickle.loads(matrix_bytes)
         return matrixnp
@@ -252,6 +282,12 @@ class Prescription(models.Model):
         matrixdf = self.get_matrix_as_df()
         matrixdict = matrixdf.to_dict(orient='dict')
         return matrixdict
+
+    def get_matrix_as_odict(self):
+        """get matrix from database (as pandas dataframe), return a python ordered dict"""
+        matrixdf = self.get_matrix_as_df()
+        matrixodict = matrixdf.to_dict(into=OrderedDict)
+        return matrixodict
 
     def set_matrix_from_np(self, matrixnp):
         """set numpy matrix to db"""

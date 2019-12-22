@@ -1,0 +1,303 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"pop",
+				"pop_users"
+			],
+			[
+				"count",
+				"counter_pobjects_all"
+			],
+			[
+				"D",
+				"d"
+			],
+			[
+				"period_",
+				"period_hr"
+			],
+			[
+				"period",
+				"period_hr"
+			],
+			[
+				"p",
+				"period_id"
+			],
+			[
+				"Sign",
+				"SignoffToday"
+			],
+			[
+				"prescriptions_",
+				"prescriptions_client"
+			],
+			[
+				"R",
+				"RecurrenceField"
+			],
+			[
+				"f",
+				"frequency"
+			],
+			[
+				"a",
+				"appseed"
+			],
+			[
+				"if",
+				"ifmain\tif __name__ == '__main__'"
+			],
+			[
+				"op",
+				"opal"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				":w",
+				":w - Save"
+			],
+			[
+				"Dj",
+				"Django: Custom Command"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"Django:",
+				"Django: Shell"
+			],
+			[
+				"",
+				"About"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"install p",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 212.0,
+		"history":
+		[
+			"exit()",
+			"exit"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/joostsoeterbroek/Development/cuneiform/medslist/forms.py",
+		"/home/joostsoeterbroek/Development/cuneiform/medslist/templates/prescription_matrix_detail.html",
+		"/home/joostsoeterbroek/Development/cuneiform/README.md",
+		"/home/joostsoeterbroek/Development/cuneiform/scripts/prescription_events.py",
+		"/home/joostsoeterbroek/Development/cuneiform/scripts/populate.py",
+		"/home/joostsoeterbroek/Development/cuneiform/tests/test_models.py",
+		"/home/joostsoeterbroek/Development/cuneiform/medslist/views.py",
+		"/home/joostsoeterbroek/.config/sublime-text-3/Installed Packages/Django Manage Commands.sublime-package",
+		"/home/joostsoeterbroek/Development/cuneiform/populate.py",
+		"/home/joostsoeterbroek/Development/foo/test.py",
+		"/home/joostsoeterbroek/.config/sublime-text-3/Packages/User/Anaconda.sublime-settings",
+		"/home/joostsoeterbroek/Development/cuneiform/hmas/tests/common.py",
+		"/home/joostsoeterbroek/Development/cuneiform/hmas/medslist/models.py",
+		"/home/joostsoeterbroek/Development/hartekamp/hmas/meds/models.py",
+		"/home/joostsoeterbroek/Development/cuneiform/hmas/medslist/urls.py",
+		"/home/joostsoeterbroek/Development/cuneiform/hmas/signoff/templates/signoff_index.html",
+		"/home/joostsoeterbroek/Development/cuneiform/hmas/medslist/views.py",
+		"/home/joostsoeterbroek/Development/cuneiform/hmas/medslist/templates/medslist_index.html",
+		"/home/joostsoeterbroek/.config/sublime-text-3/Packages/Anaconda/README.md",
+		"/home/joostsoeterbroek/Development/standvannl/standvannl-dashboard/app/views.py",
+		"/home/joostsoeterbroek/Development/standvannl/standvannl-data/datasets/download/test.py",
+		"/home/joostsoeterbroek/Development/standvannl/standvannl-dashboard/app/templates/includes/navigation.html",
+		"/home/joostsoeterbroek/Development/standvannl/standvannl-dashboard/app/templates/pages/index.html",
+		"/home/joostsoeterbroek/Development/test/hartekamp/hartekamp/patient_lists.py",
+		"/home/joostsoeterbroek/Development/test/hartekamp/medication/medication/settings.py"
+	],
+	"find":
+	{
+		"height": 30.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 30.0
+	},
+	"input":
+	{
+		"height": 43.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.SublimeLinter":
+	{
+		"height": 0.0
+	},
+	"output.SublimeLinter Messages":
+	{
+		"height": 162.0
+	},
+	"output.exec":
+	{
+		"height": 264.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Packages/Python/Python.sublime-build",
+	"project": "cuneiform.sublime-project",
+	"replace":
+	{
+		"height": 56.0
+	},
+	"save_all_on_build": false,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

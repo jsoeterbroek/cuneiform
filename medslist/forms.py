@@ -114,7 +114,13 @@ class PrescriptionForm(forms.ModelForm):
 class PrescriptionMatrixForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
+        matrixodict = kwargs.pop('matrixodict')
         super(PrescriptionMatrixForm, self).__init__(*args, **kwargs)
+        for daykey, dayvalue in matrixodict.items():
+            for key, value in dayvalue.items():
+                keyslug = daykey + "_" + key
+                self.fields[keyslug] = forms.DecimalField(widget=forms.NumberInput(attrs={'minlength': 10, 'maxlength': 15, 'required': True, 'type': 'number',}))
+
         self.helper = FormHelper()
         self.helper.form_id = 'PrescriptionMatrixForm'
         self.helper.form_class = 'cuneiform_prescription_form'
@@ -123,4 +129,4 @@ class PrescriptionMatrixForm(forms.ModelForm):
 
     class Meta:
         model = Prescription
-        fields = []
+        fields = ()
