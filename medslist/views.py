@@ -465,7 +465,7 @@ def PrescriptionDetailView(request, pk):
 
     context = {
         'prescription': prescription,
-        'matrixodict': matrixodict, 
+        'matrixodict': matrixodict,
         'lastmod': lastmod,
         'lastmod_who': lastmod_who,
         'lastmod_when': lastmod_when,
@@ -535,13 +535,19 @@ def PrescriptionMatrixEditView(request, pk):
     try:
         prescription = Prescription.objects.get(pk=pk)
 
-        if not prescription.matrix:
-            prescription.init_matrix()
-            prescription.save()
+        #if not prescription.matrix:
+        #    prescription.init_matrix()
+        #    prescription.save()
         #matrixdf = prescription.get_matrix_as_df()
         #matrixjson = matrixdf.to_json()
         #matrixnp = prescription.get_matrix_as_np()
+        matrixdict = {}
         matrixodict = prescription.get_matrix_as_odict()
+        # convert matrix ordered dict in 'flat' regular dict
+        for daykey, dayvalue in matrixodict.items():
+            for key, value in dayvalue.items():
+                keyslug = daykey + "_" + key
+                matrixdict[keyslug] = value
     except Prescription.DoesNotExist:
         raise Http404("prescription does not exist")
 
@@ -549,6 +555,7 @@ def PrescriptionMatrixEditView(request, pk):
         form = PrescriptionMatrixForm(request.POST)
         if form.is_valid():
             p = form.save(commit=False)
+
 
             if not p.pk:
                 p.pk = prescription.pk
@@ -568,6 +575,14 @@ def PrescriptionMatrixEditView(request, pk):
                 p.end_date = prescription.end_date
             if not p.remarks:
                 p.remarks = prescription.remarks
+            if not p.matrix:
+                p.matrix = prescription.matrix
+
+           pmatrixdict = {}
+           for name, value in p.items():
+               if name.startswith(('mon_', 'tue_', 'wed_', 'thu_', 'fri_', 'sat_', 'sun_')):
+                   pmatrixdict[name] = value
+
 
             user = get_request().user
             obj_type = PRESCRIPTION
@@ -596,6 +611,9 @@ def PrescriptionMatrixEditView(request, pk):
             'start_date': prescription.start_date,
             'end_date': prescription.end_date,
         }
+        # concat the matrixdict onto initial data dict
+        prescription_matrix_initial_data.update(matrixdict)
+
         form = PrescriptionMatrixForm(
             initial=prescription_matrix_initial_data,
             matrixodict=matrixodict

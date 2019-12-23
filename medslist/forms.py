@@ -6,6 +6,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from .models import Prescription, Client, Drug
 
+
 class ClientForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
@@ -19,26 +20,27 @@ class ClientForm(forms.ModelForm):
     class Meta:
         model = Client
         widgets = {
-            'dateofbirth': forms.DateInput(attrs={'class':'datepicker'}),
-                }
+            'dateofbirth': forms.DateInput(attrs={'class': 'datepicker'}),
+        }
         fields = (
             'firstname',
             'lastname',
             'dateofbirth',
             'bsn',
-                )
+        )
         labels = {
             'firstname': 'Voornaam',
             'lastname': 'Achternaam',
             'dateofbirth': 'Geboortedatum',
             'bsn': 'BSN',
-                }
+        }
         help_texts = {
             'firstname': 'Voornaam van de client',
             'lastname': 'Achternaam van de client',
             'dateofbirth': 'Geboortedatum van de client in format DD-MM-YYYY',
             'bsn': 'Het 9-cijferig Burger Service Nummer van de client',
-            }
+        }
+
 
 class DrugForm(forms.ModelForm):
 
@@ -70,6 +72,7 @@ class DrugForm(forms.ModelForm):
             'appearance': 'Uiterlijk',
             'intake': 'Inname',
         }
+
 
 class PrescriptionForm(forms.ModelForm):
 
@@ -114,13 +117,16 @@ class PrescriptionForm(forms.ModelForm):
 class PrescriptionMatrixForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
-        matrixodict = kwargs.pop('matrixodict')
-        super(PrescriptionMatrixForm, self).__init__(*args, **kwargs)
-        for daykey, dayvalue in matrixodict.items():
-            for key, value in dayvalue.items():
-                keyslug = daykey + "_" + key
-                self.fields[keyslug] = forms.DecimalField(widget=forms.NumberInput(attrs={'minlength': 10, 'maxlength': 15, 'required': True, 'type': 'number',}))
-
+        if kwargs.get('matrixodict'):
+            matrixodict = kwargs.pop('matrixodict')
+            super(PrescriptionMatrixForm, self).__init__(*args, **kwargs)
+            for daykey, dayvalue in matrixodict.items():
+                for key, value in dayvalue.items():
+                    keyslug = daykey + "_" + key
+                    self.fields[keyslug] = forms.DecimalField(widget=forms.NumberInput(
+                        attrs={'minlength': 1, 'maxlength': 5, 'required': True, 'type': 'number', }))
+        else:
+            super(PrescriptionMatrixForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_id = 'PrescriptionMatrixForm'
         self.helper.form_class = 'cuneiform_prescription_form'
