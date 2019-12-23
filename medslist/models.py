@@ -3,17 +3,13 @@ import uuid
 #from datetime import datetime
 import pickle
 import base64
-from collections import OrderedDict
 import numpy as np
-import pandas as pd
 from django.db import models
-from django.core.exceptions import ValidationError
-#from django.contrib.auth.models import User
+from django.contrib.auth.models import User
 #from django.utils.dateparse import parse_datetime
-from django.utils import timezone
+#from django.utils import timezone
 #from django.db.models.signals import post_save
 #from django.dispatch import receiver
-from django.utils.translation import gettext_lazy as _
 from simple_history.models import HistoricalRecords
 from audit_log.models.fields import LastUserField
 #from .get_current_user import get_request
@@ -37,6 +33,33 @@ from audit_log.models.fields import LastUserField
 #@receiver(post_save, sender=User)
 # def save_user_profile(instance):
 #    instance.profile.save()
+
+
+class DrugManager(models.Model):
+    """ Drug model """
+
+    def is_lastmod(self):
+        return self.lastmod
+
+    def create(self, name, ingredient, use, sideeffects, particularities):
+        drug = Drug(name=name, ingredient=ingredient, use=use,
+                   sideeffects=sideeffects, particularities=particularities)
+        return drug
+
+    def get_lastmod_who(self):
+        return self.lastmod_who
+
+    def get_lastmod_when(self):
+        return self.lastmod_when
+
+    def is_doublecheck(self):
+        return self.doublecheck
+
+    def get_doublecheck_who(self):
+        return self.doublecheck_who
+
+    def get_doublecheck_when(self):
+        return self.doublecheck_when
 
 
 class Drug(models.Model):
@@ -67,10 +90,16 @@ class Drug(models.Model):
     doublecheck_when = models.DateTimeField(
         "date is doublechecked", null=True, blank=True)
     history = HistoricalRecords()
-    #drugs = DrugManager()
+    drugs = DrugManager()
 
     def __str__(self):
         return self.name
+
+    def is_lastmod(self):
+        return self.lastmod
+
+    def get_lastmod_who(self):
+        return self.lastmod_who
 
     def get_lastmod_when(self):
         return self.lastmod_when
@@ -83,12 +112,6 @@ class Drug(models.Model):
 
     def get_doublecheck_when(self):
         return self.doublecheck_when
-
-    def is_lastmod(self):
-        return self.lastmod
-
-    def get_lastmod_who(self):
-        return self.lastmod_who
 
     class Meta:
         # abstract = True
@@ -159,22 +182,9 @@ class Client(models.Model):
         verbose_name = 'Client'
         verbose_name_plural = 'Clienten'
 
-class PrescriptionManager(models.Manager):
-    """ Prescription Model Manager """
-
-    def create(self, *args, **kwargs):
-        #initial 2-d numpy matrix 42 range, seven days, six periods
-        arr = np.arange(42)
-        zz = np.zeros(arr.shape)
-        npmatrix = zz.reshape(6, 7) # six periods, seven days
-        matrix_bytes = pickle.dumps(npmatrix)
-        matrix_base64 = base64.b64encode(matrix_bytes)
-        matrix = matrix_base64
-        kwargs['matrix'] = matrix
-        return super(PrescriptionManager, self).create(*args, **kwargs)
 
 class Prescription(models.Model):
-    """ Prescription Model """
+    """"""
 
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     name = models.CharField(max_length=250)
@@ -200,105 +210,9 @@ class Prescription(models.Model):
     doublecheck_when = models.DateTimeField(
         "date is doublechecked", null=True, blank=True)
     history = HistoricalRecords()
-    objects = PrescriptionManager()
 
     def __str__(self):
         return self.name
-
-    def has_matrix(self):
-        if self.matrix is None:
-            return False
-        else:
-            return True
-
-    def init_matrix(self):
-        #initial 2-d numpy matrix 42 range, seven days, six periods
-        arr = np.arange(42)
-        zz = np.zeros(arr.shape)
-        npmatrix = zz.reshape(6, 7) # six periods, seven days
-        matrix_bytes = pickle.dumps(npmatrix)
-        matrix_base64 = base64.b64encode(matrix_bytes)
-        init_matrix = matrix_base64
-        self.matrix = init_matrix
-
-    def update_matrix(self, period, day, value):
-        """
-        takes 3 arguments:
-         - period (one of: 'p00100','p00200','p00300','p00400','p00500','p00600')
-         - day (one of: 'mon','tue','wed','thu','fri','sat','sun')
-         - value
-        e.g.:
-        p1.update_matrix('p00400', 'sat', 12) # value 12 on 4th period on saturday
-        """
-        valid_periods = {'p00100', 'p00200', 'p00300', 'p00400', 'p00500', 'p00600'}
-        if period not in valid_periods:
-            raise ValueError("results: period must be one of %s." % valid_periods)
-        valid_days = {'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'}
-        if day not in valid_days:
-            raise ValueError("results: day must be one of %s." % valid_days)
-        df = self.get_matrix_as_df()
-        df.at[period, day] = value
-        self.set_matrix_from_df(df)
-
-    def get_matrix_field_value(self, period, day, dtype='int'):
-        """
-        takes 2 arguments:
-         - period (one of: 'p00100','p00200','p00300','p00400','p00500','p00600')
-         - day (one of: 'mon','tue','wed','thu','fri','sat','sun')
-
-        returns value of field
-        """
-        valid_periods = {'p00100', 'p00200', 'p00300', 'p00400', 'p00500', 'p00600'}
-        if period not in valid_periods:
-            raise ValueError("results: period must be one of %s." % valid_periods)
-        valid_days = {'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'}
-        if day not in valid_days:
-            raise ValueError("results: day must be one of %s." % valid_days)
-        df = self.get_matrix_as_df()
-        value = df.at[period, day]
-        if dtype == 'int':
-            return int(value)
-        else:
-            return value
-
-    def get_matrix_as_np(self):
-        """retrieve matrix from database, return a numpy 2d array"""
-        if not self.has_matrix:
-            self.init_matrix()
-        matrix_bytes = base64.b64decode(self.matrix)
-        matrixnp = pickle.loads(matrix_bytes)
-        return matrixnp
-
-    def get_matrix_as_df(self):
-        """get matrix from database (as numpy 2d array), return a pandas dataframe"""
-        matrixnp = self.get_matrix_as_np()
-        column_names = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
-        row_names = ['p00100', 'p00200', 'p00300', 'p00400', 'p00500', 'p00600']
-        matrixdf = pd.DataFrame(matrixnp, columns=column_names, index=row_names)
-        return matrixdf
-
-    def get_matrix_as_dict(self):
-        """get matrix from database (as pandas dataframe), return a python dict"""
-        matrixdf = self.get_matrix_as_df()
-        matrixdict = matrixdf.to_dict(orient='dict')
-        return matrixdict
-
-    def get_matrix_as_odict(self):
-        """get matrix from database (as pandas dataframe), return a python ordered dict"""
-        matrixdf = self.get_matrix_as_df()
-        matrixodict = matrixdf.to_dict(into=OrderedDict)
-        return matrixodict
-
-    def set_matrix_from_np(self, matrixnp):
-        """set numpy matrix to db"""
-        matrix_bytes = pickle.dumps(matrixnp)
-        matrix_base64 = base64.b64encode(matrix_bytes)
-        self.matrix = matrix_base64
-
-    def set_matrix_from_df(self, matrixdf):
-        """convert pandas dataframe to numpy, then set to db"""
-        matrixnp = matrixdf.to_numpy()
-        self.set_matrix_from_np(matrixnp)
 
     def is_lastmod(self):
         return self.lastmod
@@ -309,18 +223,6 @@ class Prescription(models.Model):
     def get_lastmod_when(self):
         return self.lastmod_when
 
-    def set_lastmod(self, who):
-
-        # when a modification is made, doublecheck flag has to be
-        # set back to false
-        if self.is_doublecheck():
-            self.doublecheck = False
-
-        self.lastmod_who = who
-        self.lastmod_when = timezone.now()
-        self.lastmod = True
-        return self.lastmod
-
     def is_doublecheck(self):
         return self.doublecheck
 
@@ -330,16 +232,18 @@ class Prescription(models.Model):
     def get_doublecheck_when(self):
         return self.doublecheck_when
 
-    def set_doublecheck(self, who):
+    # def set_matrix(self):
+    #    arr = np.arange(42)
+    #    matrix = arr.reshape(7, 6) # seven days, six periods
+    #    matrix_bytes = pickle.dumps(matrix)
+    #    matrix_base64 = base64.b64encode(matrix_bytes)
+    #    self.model.matrixfield = matrix_base64
+    #    #return self.model.matrixfield
 
-        # do not allow the lastmod user to be same as
-        # doublecheck user
-        if self.lastmod_who == who:
-            raise ValidationError(_('lastmod user cannot be the same as doublecheck user.'))
-        self.doublecheck_who = who
-        self.doublecheck_when = timezone.now()
-        self.doublecheck = True
-        return self.doublecheck
+    # def get_matrix(self):
+    #    matrix_bytes = base64.base64decode(self.model.matrixfield)
+    #    self.matrix = pickle.loads(matrix_bytes)
+    #    return self.matrix
 
     class Meta:
         # abstract = True

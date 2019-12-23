@@ -10,23 +10,26 @@ from django.shortcuts import render, redirect
 from django.utils import timezone
 #from django.conf import settings
 from django.contrib.auth.decorators import login_required
-#from django.contrib.messages import constants as messages
+from django.contrib.messages import constants as messages
 from log.models import CuneiformLogEntry, DRUG, CLIENT, PRESCRIPTION
-#from cuneiform.create_pe import create_pe, update_pe
+#from core.create_pe import create_pe, update_pe
 from .forms import PrescriptionForm, PrescriptionMatrixForm, ClientForm, DrugForm
 from .models import Prescription, Client, Drug
 from .utils import log_addition, log_change, log_doublecheck
 from .get_current_user import get_request
 
+
 def index(request):
     """ index """
     return render(request, 'medslist_index.html')
+
 
 @login_required
 def UserProfileView(request):
     """ view """
     context = {}
     return render(request, 'accounts/profile.html', context)
+
 
 # mag alleen door TTV-ers gezien worden
 # if statement in template
@@ -47,6 +50,7 @@ def LogListView(request):
     context = {'plist': plist}
     return render(request, 'log/log_list.html', context)
 
+
 @login_required
 def OverviewDoublecheckListView(request):
     """ not emplty"""
@@ -55,6 +59,7 @@ def OverviewDoublecheckListView(request):
         'list': list_latest,
     }
     return render(request, 'overview_doublecheck_list.html', context)
+
 
 @login_required
 def DrugListView(request):
@@ -72,6 +77,7 @@ def DrugListView(request):
 
     context = {'plist': plist}
     return render(request, 'drug_index.html', context)
+
 
 @login_required
 def DrugDoublecheckView(request, pk):
@@ -93,6 +99,7 @@ def DrugDoublecheckView(request, pk):
     }
     return render(request, 'drug_doublecheck.html', context)
 
+
 @login_required
 def DrugDoublecheckNextView(request, pk):
     """ DoublecheckNext view of Drug object """
@@ -110,6 +117,7 @@ def DrugDoublecheckNextView(request, pk):
     drug.save()
     log_doublecheck(user, drug, obj_type, msg)
     return redirect('drug-detail', pk=drug.pk)
+
 
 @login_required
 def DrugDetailView(request, pk):
@@ -142,6 +150,7 @@ def DrugDetailView(request, pk):
         'doublecheck_when': doublecheck_when,
     }
     return render(request, 'drug_detail.html', context)
+
 
 @login_required
 def DrugAddView(request):
@@ -203,7 +212,7 @@ def DrugEditView(request, pk):
     else:
         drug_initial_data = {
             'name': drug.name,
-            'ingredient': drug.ingredient,
+            'werkzamestof': drug.werkzamestof,
             'use': drug.use,
             'sideeffects': drug.sideeffects,
             'particularities': drug.particularities,
@@ -328,6 +337,8 @@ def ClientAddView(request):
             p.save()
             log_addition(user, p, obj_type, msg)
             return redirect('client-detail', pk=p.pk)
+        else:
+            messages.error(request, "Error: form not valid")
     else:
         form = ClientForm()
         context = {
@@ -446,7 +457,6 @@ def PrescriptionDetailView(request, pk):
 
     try:
         prescription = Prescription.objects.get(pk=pk)
-        matrixodict = prescription.get_matrix_as_odict()
     except Prescription.DoesNotExist:
         raise Http404("Prescription does not exist")
 
@@ -465,7 +475,6 @@ def PrescriptionDetailView(request, pk):
 
     context = {
         'prescription': prescription,
-        'matrixodict': matrixodict,
         'lastmod': lastmod,
         'lastmod_who': lastmod_who,
         'lastmod_when': lastmod_when,
@@ -497,6 +506,42 @@ def PrescriptionEditView(request, pk):
             if not p.matrix:
                 p.matrix = prescription.matrix
 
+            #p.m_d00100_p00100 = prescription.m_d00100_p00100
+            #p.m_d00200_p00100 = prescription.m_d00200_p00100
+            #p.m_d00300_p00100 = prescription.m_d00300_p00100
+            #p.m_d00400_p00100 = prescription.m_d00400_p00100
+            #p.m_d00500_p00100 = prescription.m_d00500_p00100
+            #p.m_d00600_p00100 = prescription.m_d00600_p00100
+            #p.m_d00700_p00100 = prescription.m_d00700_p00100
+            #p.m_d00100_p00200 = prescription.m_d00100_p00200
+            #p.m_d00200_p00200 = prescription.m_d00200_p00200
+            #p.m_d00300_p00200 = prescription.m_d00300_p00200
+            #p.m_d00400_p00200 = prescription.m_d00400_p00200
+            #p.m_d00500_p00200 = prescription.m_d00500_p00200
+            #p.m_d00600_p00200 = prescription.m_d00600_p00200
+            #p.m_d00700_p00200 = prescription.m_d00700_p00200
+            #p.m_d00100_p00300 = prescription.m_d00100_p00300
+            #p.m_d00200_p00300 = prescription.m_d00200_p00300
+            #p.m_d00300_p00300 = prescription.m_d00300_p00300
+            #p.m_d00400_p00300 = prescription.m_d00400_p00300
+            #p.m_d00500_p00300 = prescription.m_d00500_p00300
+            #p.m_d00600_p00300 = prescription.m_d00600_p00300
+            #p.m_d00700_p00300 = prescription.m_d00700_p00300
+            #p.m_d00100_p00400 = prescription.m_d00100_p00400
+            #p.m_d00200_p00400 = prescription.m_d00200_p00400
+            #p.m_d00300_p00400 = prescription.m_d00300_p00400
+            #p.m_d00400_p00400 = prescription.m_d00400_p00400
+            #p.m_d00500_p00400 = prescription.m_d00500_p00400
+            #p.m_d00600_p00400 = prescription.m_d00600_p00400
+            #p.m_d00700_p00400 = prescription.m_d00700_p00400
+            #p.m_d00100_p00500 = prescription.m_d00100_p00500
+            #p.m_d00200_p00500 = prescription.m_d00200_p00500
+            #p.m_d00300_p00500 = prescription.m_d00300_p00500
+            #p.m_d00400_p00500 = prescription.m_d00400_p00500
+            #p.m_d00500_p00500 = prescription.m_d00500_p00500
+            #p.m_d00600_p00500 = prescription.m_d00600_p00500
+            #p.m_d00700_p00500 = prescription.m_d00700_p00500
+
             user = get_request().user
             obj_type = PRESCRIPTION
             if p.doublecheck:
@@ -508,9 +553,11 @@ def PrescriptionEditView(request, pk):
             p.lastmod_who = get_request().user
             p.lastmod_when = timezone.now()
             p.save()
-            #update_pe(p.pk)
+            update_pe(p.pk)
             log_change(user, prescription, obj_type, msg)
             return redirect('prescription-detail', pk=p.pk)
+        else:
+            messages.error(request, "Error: form not valid")
     else:
         prescription_initial_data = {
             'name': prescription.name,
@@ -534,20 +581,6 @@ def PrescriptionMatrixEditView(request, pk):
     """ Edit view (index) of Prescription object """
     try:
         prescription = Prescription.objects.get(pk=pk)
-
-        #if not prescription.matrix:
-        #    prescription.init_matrix()
-        #    prescription.save()
-        #matrixdf = prescription.get_matrix_as_df()
-        #matrixjson = matrixdf.to_json()
-        #matrixnp = prescription.get_matrix_as_np()
-        matrixdict = {}
-        matrixodict = prescription.get_matrix_as_odict()
-        # convert matrix ordered dict in 'flat' regular dict
-        for daykey, dayvalue in matrixodict.items():
-            for key, value in dayvalue.items():
-                keyslug = daykey + "_" + key
-                matrixdict[keyslug] = value
     except Prescription.DoesNotExist:
         raise Http404("prescription does not exist")
 
@@ -555,7 +588,6 @@ def PrescriptionMatrixEditView(request, pk):
         form = PrescriptionMatrixForm(request.POST)
         if form.is_valid():
             p = form.save(commit=False)
-
 
             if not p.pk:
                 p.pk = prescription.pk
@@ -575,14 +607,6 @@ def PrescriptionMatrixEditView(request, pk):
                 p.end_date = prescription.end_date
             if not p.remarks:
                 p.remarks = prescription.remarks
-            if not p.matrix:
-                p.matrix = prescription.matrix
-
-           pmatrixdict = {}
-           for name, value in p.items():
-               if name.startswith(('mon_', 'tue_', 'wed_', 'thu_', 'fri_', 'sat_', 'sun_')):
-                   pmatrixdict[name] = value
-
 
             user = get_request().user
             obj_type = PRESCRIPTION
@@ -594,15 +618,15 @@ def PrescriptionMatrixEditView(request, pk):
             p.lastmod = True
             p.lastmod_who = get_request().user
             p.lastmod_when = timezone.now()
+            p.matrix = True
             p.save()
-            #prescription = Prescription.objects.get(pk=pk)
-            #df = prescription.get_pdfmatrix()
-            #update_pe(p.pk)
+            update_pe(p.pk)
             log_change(user, prescription, obj_type, msg)
             return redirect('prescription-detail', pk=p.pk)
+        else:
+            messages.error(request, "Error: form not valid")
 
     else:
-
         prescription_matrix_initial_data = {
             'name': prescription.name,
             'client': prescription.client,
@@ -610,14 +634,44 @@ def PrescriptionMatrixEditView(request, pk):
             'doctor': prescription.doctor,
             'start_date': prescription.start_date,
             'end_date': prescription.end_date,
+            #'m_d00100_p00100': prescription.m_d00100_p00100,
+            #'m_d00200_p00100': prescription.m_d00200_p00100,
+            #'m_d00300_p00100': prescription.m_d00300_p00100,
+            #'m_d00400_p00100': prescription.m_d00400_p00100,
+            #'m_d00500_p00100': prescription.m_d00500_p00100,
+            #'m_d00600_p00100': prescription.m_d00600_p00100,
+            #'m_d00700_p00100': prescription.m_d00700_p00100,
+            #'m_d00100_p00200': prescription.m_d00100_p00200,
+            #'m_d00200_p00200': prescription.m_d00200_p00200,
+            #'m_d00300_p00200': prescription.m_d00300_p00200,
+            #'m_d00400_p00200': prescription.m_d00400_p00200,
+            #'m_d00500_p00200': prescription.m_d00500_p00200,
+            #'m_d00600_p00200': prescription.m_d00600_p00200,
+            #'m_d00700_p00200': prescription.m_d00700_p00200,
+            #'m_d00100_p00300': prescription.m_d00100_p00300,
+            #'m_d00200_p00300': prescription.m_d00200_p00300,
+            #'m_d00300_p00300': prescription.m_d00300_p00300,
+            #'m_d00400_p00300': prescription.m_d00400_p00300,
+            #'m_d00500_p00300': prescription.m_d00500_p00300,
+            #'m_d00600_p00300': prescription.m_d00600_p00300,
+            #'m_d00700_p00300': prescription.m_d00700_p00300,
+            #'m_d00100_p00400': prescription.m_d00100_p00400,
+            #'m_d00200_p00400': prescription.m_d00200_p00400,
+            #'m_d00300_p00400': prescription.m_d00300_p00400,
+            #'m_d00400_p00400': prescription.m_d00400_p00400,
+            #'m_d00500_p00400': prescription.m_d00500_p00400,
+            #'m_d00600_p00400': prescription.m_d00600_p00400,
+            #'m_d00700_p00400': prescription.m_d00700_p00400,
+            #'m_d00100_p00500': prescription.m_d00100_p00500,
+            #'m_d00200_p00500': prescription.m_d00200_p00500,
+            #'m_d00300_p00500': prescription.m_d00300_p00500,
+            #'m_d00400_p00500': prescription.m_d00400_p00500,
+            #'m_d00500_p00500': prescription.m_d00500_p00500,
+            #'m_d00600_p00500': prescription.m_d00600_p00500,
+            #'m_d00700_p00500': prescription.m_d00700_p00500,
         }
-        # concat the matrixdict onto initial data dict
-        prescription_matrix_initial_data.update(matrixdict)
 
-        form = PrescriptionMatrixForm(
-            initial=prescription_matrix_initial_data,
-            matrixodict=matrixodict
-        )
+        form = PrescriptionMatrixForm(initial=prescription_matrix_initial_data)
         context = {
             'form': form,
             'prescription': prescription,
@@ -640,12 +694,12 @@ def PrescriptionAddView(request):
             p.lastmod_who = get_request().user
             p.lastmod_when = timezone.now()
             p.save()
-            #prescription = Prescription.objects.get(pk=p.pk)
-            #prescription.init_matrix()
-            #df = prescription.get_pdfmatrix()
             #create_pe(p.pk)
             log_addition(user, p, obj_type, msg)
             return redirect('prescription-detail', pk=p.pk)
+        else:
+            messages.error(request, "Error: form not valid")
+
     else:
         form = PrescriptionForm()
         context = {

@@ -1,22 +1,3 @@
-{% extends "medslist_base.html" %}
-{% load octicons %}
-{% load crispy_forms_tags %}
-{% crispy form form.helper %}
-{% block content %}
-<p>&nbsp;</p>
-<h2>Prescriptie Matrix</h2>
-{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-{{ form.errors }}
-{{ form.non_field_errors }}
-
-<div class="card bg-light mb-3" style="width: 50rem;">
-  <!--<img src="..." class="card-img-top" alt="...">-->
-  <div class="card-header"><strong>{{ prescription.name }}</strong></div>
-  <div class="card-body">
-    <p class="card-text">
-    Vul de week-matrix hieronder in volgens het voorgeschreven schema van de huisarts {{prescription.doctor}}.<br>
-    Deze prescriptie voor {{prescription.med}} is voorgeschreven van {{prescription.start_date}} tot {{prescription.end_date}}.
-      
 {% load crispy_forms_tags %}
 {% load crispy_forms_utils %}
 {% load crispy_forms_field %}
@@ -101,10 +82,3 @@
     </table>
     <button type="submit" class="btn btn-primary">Opslaan</button>
   </form>
-
-
-    </p>
-  </div>
-</div>
-
-{% endblock %}

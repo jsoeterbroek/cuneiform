@@ -4,7 +4,8 @@
 {% block content %}
 <p>&nbsp;</p>
 <h2>Prescriptie</h2>
-{% if error_message %}<p><strong>{{error_message}}</strong></p>{% endif %}
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
 <div class="card bg-light mb-3" style="width: 50rem;">
   <!--<img src="..." class="card-img-top" alt="...">-->
   <div class="card-header"><strong>{{prescription.name}}</strong>
@@ -34,7 +35,7 @@
 </tr><tr>
 	<td><b>Matrix:</b></td><td> &nbsp;</td>
 </tr><tr>
-	<td colspan="2"> {% include "prescription_matrix_detail.html" %} </td>
+	<td colspan="2"> {% include "prescription_detail_matrix.html" %} </td>
 </tr><tr>
 	<td colspan="2"> {{ prescription.remarks }}</td>
 </tr>

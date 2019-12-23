@@ -13,10 +13,10 @@
     "appearance": "ovaa roze 40 bs",
     "intake": "Neem de tabletten in met een half glas water.",
     "lastmod": true,
-    "lastmod_who": 6,
+    "lastmod_who": 4,
     "lastmod_when": "2019-12-09T11:26:25.975",
     "doublecheck": false,
-    "doublecheck_who": 6,
+    "doublecheck_who": 4,
     "doublecheck_when": null
   }
 },
@@ -34,10 +34,10 @@
     "appearance": "rond wit bs",
     "intake": "Neem de tabletten in met een half glas water.",
     "lastmod": true,
-    "lastmod_who": 6,
+    "lastmod_who": 4,
     "lastmod_when": "2019-12-09T11:13:22.119",
     "doublecheck": false,
-    "doublecheck_who": 6,
+    "doublecheck_who": 4,
     "doublecheck_when": null
   }
 },
@@ -55,10 +55,10 @@
     "appearance": "wit wit om20",
     "intake": "Capsules: innemen zonder te kauwen. U mag de capsule eventueel openmaken. Tabletten: innemen zonder te kauwen.",
     "lastmod": true,
-    "lastmod_who": 6,
+    "lastmod_who": 4,
     "lastmod_when": "2019-12-09T11:18:41.438",
     "doublecheck": false,
-    "doublecheck_who": 6,
+    "doublecheck_who": 4,
     "doublecheck_when": null
   }
 },
@@ -76,10 +76,10 @@
     "appearance": "wit wit",
     "intake": "Neem de tabletten in met een half glas water.",
     "lastmod": true,
-    "lastmod_who": 6,
+    "lastmod_who": 4,
     "lastmod_when": "2019-12-09T15:10:52.830",
     "doublecheck": false,
-    "doublecheck_who": 6,
+    "doublecheck_who": 4,
     "doublecheck_when": null
   }
 },
@@ -106,7 +106,7 @@
 },
 {
   "model": "medslist.drug",
-  "pk": 6,
+  "pk": 4,
   "fields": {
     "uuid": "b896df58-37e1-42f1-befc-119bc9b45757",
     "created": "2019-11-25T19:43:23.146",
@@ -118,10 +118,10 @@
     "appearance": "ovaa wit 20 bs",
     "intake": "-",
     "lastmod": true,
-    "lastmod_who": 6,
+    "lastmod_who": 4,
     "lastmod_when": "2019-12-09T16:21:55.188",
     "doublecheck": false,
-    "doublecheck_who": 6,
+    "doublecheck_who": 4,
     "doublecheck_when": null
   }
 },
@@ -160,10 +160,10 @@
     "appearance": "rond wit furosemide 40",
     "intake": "-",
     "lastmod": true,
-    "lastmod_who": 6,
+    "lastmod_who": 4,
     "lastmod_when": "2019-12-16T12:57:45.322",
     "doublecheck": false,
-    "doublecheck_who": 6,
+    "doublecheck_who": 4,
     "doublecheck_when": null
   }
 },
@@ -181,10 +181,10 @@
     "appearance": "ovaa wit bs",
     "intake": "-",
     "lastmod": true,
-    "lastmod_who": 6,
+    "lastmod_who": 4,
     "lastmod_when": "2019-12-09T11:45:21.712",
     "doublecheck": false,
-    "doublecheck_who": 6,
+    "doublecheck_who": 4,
     "doublecheck_when": null
   }
 },
@@ -223,10 +223,10 @@
     "appearance": "ovaa geel",
     "intake": "Niet kauwen, meteen doorslikken",
     "lastmod": true,
-    "lastmod_who": 6,
+    "lastmod_who": 4,
     "lastmod_when": "2019-12-09T11:49:14.992",
     "doublecheck": false,
-    "doublecheck_who": 6,
+    "doublecheck_who": 4,
     "doublecheck_when": null
   }
 },
@@ -244,10 +244,10 @@
     "appearance": "rond wit tolbut.500 bs",
     "intake": "-",
     "lastmod": true,
-    "lastmod_who": 6,
+    "lastmod_who": 4,
     "lastmod_when": "2019-12-09T11:46:42.811",
     "doublecheck": false,
-    "doublecheck_who": 6,
+    "doublecheck_who": 4,
     "doublecheck_when": null
   }
 },
@@ -307,10 +307,10 @@
     "appearance": "ovaa oran r 2 bs",
     "intake": "Glas water",
     "lastmod": true,
-    "lastmod_who": 6,
+    "lastmod_who": 4,
     "lastmod_when": "2019-12-09T11:06:02.603",
     "doublecheck": false,
-    "doublecheck_who": 6,
+    "doublecheck_who": 4,
     "doublecheck_when": null
   }
 },
@@ -352,7 +352,7 @@
     "lastmod_who": 2,
     "lastmod_when": "2019-11-29T17:54:00.826",
     "doublecheck": true,
-    "doublecheck_who": 6,
+    "doublecheck_who": 4,
     "doublecheck_when": "2019-12-08T23:25:10.559"
   }
 },
@@ -370,10 +370,10 @@
     "appearance": "poeder wit",
     "intake": "Los de inhoud van 1 sachet op in een glas water (125 ml)",
     "lastmod": true,
-    "lastmod_who": 6,
+    "lastmod_who": 4,
     "lastmod_when": "2019-12-09T15:31:47.702",
     "doublecheck": false,
-    "doublecheck_who": 6,
+    "doublecheck_who": 4,
     "doublecheck_when": null
   }
 },
@@ -412,10 +412,10 @@
     "appearance": "drank roze",
     "intake": "Drank",
     "lastmod": true,
-    "lastmod_who": 6,
+    "lastmod_who": 4,
     "lastmod_when": "2019-12-09T11:29:12.002",
     "doublecheck": false,
-    "doublecheck_who": 6,
+    "doublecheck_who": 4,
     "doublecheck_when": null
   }
 },
@@ -433,10 +433,10 @@
     "appearance": "rond wit",
     "intake": "Goed kauwen. Daarna doorslikken met water.",
     "lastmod": true,
-    "lastmod_who": 6,
+    "lastmod_who": 4,
     "lastmod_when": "2019-12-09T13:06:34.580",
     "doublecheck": false,
-    "doublecheck_who": 6,
+    "doublecheck_who": 4,
     "doublecheck_when": null
   }
 },
@@ -454,10 +454,10 @@
     "appearance": "vloeibaar troebel",
     "intake": "Subcutaan (inspuiten)",
     "lastmod": true,
-    "lastmod_who": 6,
+    "lastmod_who": 4,
     "lastmod_when": "2019-12-09T13:31:43.581",
     "doublecheck": false,
-    "doublecheck_who": 6,
+    "doublecheck_who": 4,
     "doublecheck_when": null
   }
 },
@@ -475,10 +475,10 @@
     "appearance": "zalf",
     "intake": "druppel in oog",
     "lastmod": true,
-    "lastmod_who": 6,
+    "lastmod_who": 4,
     "lastmod_when": "2019-12-09T14:46:51.530",
     "doublecheck": false,
-    "doublecheck_who": 6,
+    "doublecheck_who": 4,
     "doublecheck_when": null
   }
 },
@@ -496,10 +496,10 @@
     "appearance": "ovaa wit 3bs",
     "intake": "Glas water",
     "lastmod": true,
-    "lastmod_who": 6,
+    "lastmod_who": 4,
     "lastmod_when": "2019-12-09T14:51:37.917",
     "doublecheck": false,
-    "doublecheck_who": 6,
+    "doublecheck_who": 4,
     "doublecheck_when": null
   }
 },
@@ -517,10 +517,10 @@
     "appearance": "rond wit bs",
     "intake": "Bij de maaltijd innemen met water",
     "lastmod": true,
-    "lastmod_who": 6,
+    "lastmod_who": 4,
     "lastmod_when": "2019-12-09T14:58:47.946",
     "doublecheck": false,
-    "doublecheck_who": 6,
+    "doublecheck_who": 4,
     "doublecheck_when": null
   }
 },
@@ -538,10 +538,10 @@
     "appearance": "rond roze",
     "intake": "innemen met een half glas water of met een andere drank",
     "lastmod": true,
-    "lastmod_who": 6,
+    "lastmod_who": 4,
     "lastmod_when": "2019-12-09T15:04:07.648",
     "doublecheck": false,
-    "doublecheck_who": 6,
+    "doublecheck_who": 4,
     "doublecheck_when": null
   }
 },
@@ -559,10 +559,10 @@
     "appearance": "rond wit pipa 10 bs",
     "intake": "Glas water",
     "lastmod": true,
-    "lastmod_who": 6,
+    "lastmod_who": 4,
     "lastmod_when": "2019-12-09T15:21:19.963",
     "doublecheck": false,
-    "doublecheck_who": 6,
+    "doublecheck_who": 4,
     "doublecheck_when": null
   }
 },
@@ -580,10 +580,10 @@
     "appearance": "pare door",
     "intake": "Glas water",
     "lastmod": true,
-    "lastmod_who": 6,
+    "lastmod_who": 4,
     "lastmod_when": "2019-12-09T15:23:48.045",
     "doublecheck": false,
-    "doublecheck_who": 6,
+    "doublecheck_who": 4,
     "doublecheck_when": null
   }
 },
@@ -601,10 +601,10 @@
     "appearance": "rond geel",
     "intake": "Glas water",
     "lastmod": true,
-    "lastmod_who": 6,
+    "lastmod_who": 4,
     "lastmod_when": "2019-12-09T15:25:56.374",
     "doublecheck": false,
-    "doublecheck_who": 6,
+    "doublecheck_who": 4,
     "doublecheck_when": null
   }
 },
@@ -622,10 +622,10 @@
     "appearance": "poeder wit",
     "intake": "Los de inhoud van 1 sachet op in een glas water (125 ml)",
     "lastmod": true,
-    "lastmod_who": 6,
+    "lastmod_who": 4,
     "lastmod_when": "2019-12-09T15:32:03.718",
     "doublecheck": false,
-    "doublecheck_who": 6,
+    "doublecheck_who": 4,
     "doublecheck_when": null
   }
 },
@@ -643,10 +643,10 @@
     "appearance": "todo",
     "intake": "U kunt de tabletten zowel voor, tijdens als na het eten innemen. Voedsel heeft nauwelijks invloed op de opname in het lichaam. Neem de tabletten zonder te kauwen in met wat vloeistof.",
     "lastmod": true,
-    "lastmod_who": 6,
+    "lastmod_who": 4,
     "lastmod_when": "2019-12-09T15:37:05.215",
     "doublecheck": false,
-    "doublecheck_who": 6,
+    "doublecheck_who": 4,
     "doublecheck_when": null
   }
 }
