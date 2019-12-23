@@ -1,0 +1,34 @@
+{% extends "signoff_base.html" %}
+
+{% block content %}
+<p>&nbsp;</p>
+  <h2>Aftekenen Vandaag</h2>
+  <h5>Vandaag, {{ dtime_date_today }}</h5>
+  <p>&nbsp;</p>
+  {% if period == "p00100" %}
+      <p><a class="btn btn-info btn-lg" href="{% url 'signoff-today-period' period='p00100' %}" role="button">ronde 1 vanaf 07:00 uur</a></p>
+  {% else %}
+      <p><a class="btn btn-outline-primary btn-lg" href="{% url 'signoff-today-period' period='p00100' %}" role="button">ronde 1 vanaf 07:00 uur</a></p>
+  {% endif %}
+  {% if period == "p00200" %}
+      <p><a class="btn btn-info btn-lg" href="{% url 'signoff-today-period' period='p00200' %}" role="button">ronde 2 vanaf 08:00 uur</a></p>
+  {% else %}
+      <p><a class="btn btn-outline-primary btn-lg" href="{% url 'signoff-today-period' period='p00200' %}" role="button">ronde 2 vanaf 08:00 uur</a></p>
+  {% endif %}
+  {% if period == "p00300" %}
+      <p><a class="btn btn-info btn-lg" href="{% url 'signoff-today-period' period='p00300' %}" role="button">ronde 3 vanaf 12:00 uur</a></p>
+  {% else %}
+      <p><a class="btn btn-outline-primary btn-lg" href="{% url 'signoff-today-period' period='p00300' %}" role="button">ronde 3 vanaf 12:00 uur</a></p>
+  {% endif %}
+  {% if period == "p00400" %}
+      <p><a class="btn btn-info btn-lg" href="{% url 'signoff-today-period' period='p00400' %}" role="button">ronde 4 vanaf 17:00 uur</a></p>
+  {% else %}
+      <p><a class="btn btn-outline-primary btn-lg" href="{% url 'signoff-today-period' period='p00400' %}" role="button">ronde 4 vanaf 17:00 uur</a></p>
+  {% endif %}
+  {% if period == "p00500" %}
+      <p><a class="btn btn-info btn-lg" href="{% url 'signoff-today-period' period='p00500' %}" role="button">ronde 5 vanaf 21:00 uur</a></p>
+  {% else %}
+     <p><a class="btn btn-outline-primary btn-lg" href="{% url 'signoff-today-period' period='p00500' %}" role="button">ronde 5 vanaf 21:00 uur</a></p>
+  {% endif %}
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "signoff_base.html" %}
+{% load octicons %}
+{% block content %}
+{% load static %}
+<p>&nbsp;</p>
+
+<center><img src="{% static "img/cuneiform_logo_300.png" %}" width="300" height="138" alt="Cuneiform Logo"></center>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<h1>Afteken module</h1>
+<h2> Aan de slag met de afteken module</h2>
+<p>De afteken module kun je gebruiken met smartphone of tablet om de prescripties af te tekenen bij de verstrekking aan de clienten.
+Deze module registreert alle details, inclusief timestamp voor latere controle of rapportage. Deze module waarschuwt ook wanneer er niet tijdig is afgetekend cq. verstrekt.
+</p>
+  <a class="btn btn-outline-primary btn-lg" href="{% url 'signoff-today' %}" role="button">Aftekenen Vandaag</a>
+  <!--<a class="btn btn-outline-primary btn-lg" href="{% url 'signoff-client' %}" role="button">Aftekenen Client</a>-->
+<p>&nbsp;</p>
+Gebruik een Smartphone of een tablet computer voor deze module.
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+{% endblock %}

@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import PrescriptionEvent
+#from .forms import PrescriptionAdminForm
 
-# Register your models here.
+
+#admin.site.register(Signoff)
+admin.site.register(PrescriptionEvent)

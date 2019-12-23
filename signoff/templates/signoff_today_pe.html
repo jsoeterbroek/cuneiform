@@ -1,0 +1,56 @@
+{% extends "signoff_base.html" %}
+{% load octicons %}
+{% load crispy_forms_tags %}
+{% crispy form form.helper %}
+{% block content %}
+<p>&nbsp;</p>
+  <h2>Aftekenen Vandaag</h2>
+  <h3></h3>
+  <!--<h4>{{client.lastname}}, {{client.firstname}} ({{client.dateofbirth}}) </h4>-->
+  <!-- <h6>{{weekday_hr}}, {{dtime_date_today}}</h6> -->
+  {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<div class="card bg-light mb-3" style="width: 30rem;">
+  <!--<img src="..." class="card-img-top" alt="...">-->
+  <div class="card-header"><strong>{{pobj.tobe_administered_who.lastname}}, {{pobj.tobe_administered_who.firstname}} ({{pobj.tobe_administered_who.dateofbirth}})</strong></div>
+    <div class="card-body">
+       <h5 class="card-title">{{ pobj.tobe_administered_what.name }}</h5>
+       <h6 class="card-subtitle mb-2 text-muted">{{pobj.tobe_administered_what.appearance}}</h6>
+  <p class="card-text">
+
+     {% if pobj.tobe_administered_howmuch %}
+       <div class="alert alert-dark" role="alert">
+         Aantal {{pobj.tobe_administered_howmuch}}
+       </div>
+     {% else %}
+         <b>Aantal onbekend</b>
+     {% endif %}
+</p>
+{{pobj.tobe_administered_what.intake}}
+<p>
+  {% if pobj.prescription.remarks %}
+    <div class="alert alert-info" role="alert">
+     {{pobj.prescription.remarks}}
+   </div>
+  {% endif %}
+
+   {% if pobj.tobe_administered_what.particularities %}
+       <div class="alert alert-info" role="alert">
+   {{pobj.tobe_administered_what.particularities}}
+      </div>
+  {% endif %}
+</p>
+<p>
+  {% if pobj.is_signedoff %}
+  <br><br>
+  Afgetekend door {{pobj.is_signedoff_who}} op {{pobj.is_signedoff_when}}
+  {% else %}
+     {% csrf_token %}
+       {% crispy form %}
+ {% endif %}
+  </p>
+  </p>
+  </div>
+</div>
+
+ {% endblock %}

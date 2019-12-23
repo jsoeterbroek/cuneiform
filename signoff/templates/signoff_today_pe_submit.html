@@ -1,0 +1,54 @@
+{% extends "signoff_base.html" %}
+{% load octicons %}
+{% load crispy_forms_tags %}
+{% crispy form form.helper %}
+{% block content %}
+<p>&nbsp;</p>
+  <h2>Aftekenen Vandaag</h2>
+  <h3>{{period_hr}}</h3>
+  <!--<h4>{{client.lastname}}, {{client.firstname}} ({{client.dateofbirth}}) </h4>-->
+  <!-- <h6>{{weekday_hr}}, {{dtime_date_today}}</h6> -->
+  {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<div class="card bg-light mb-3" style="width: 30rem;">
+  <!--<img src="..." class="card-img-top" alt="...">-->
+  <div class="card-header"><strong>{{ client.lastname }}, {{client.firstname}} ({{ client.dateofbirth }})</strong><br> {{prescription.doctor}}, huisarts</div>
+    <div class="card-body">
+       <h5 class="card-title">{{ prescription.name }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{prescription.med}}</h6>
+  <p class="card-text">
+
+    {{prescription.med.appearance}}<br>
+
+     {% if matrix_value_int %}
+       <div class="alert alert-dark" role="alert">
+         Aantal {{matrix_value_int}}
+       </div>
+     {% else %}
+         <b>Aantal onbekend</b>
+     {% endif %}
+</p>
+{{prescription.med.intake}}
+<p>
+  {% if prescription.remarks %}
+    <div class="alert alert-info" role="alert">
+     {{prescription.remarks}}
+   </div>
+  {% endif %}
+
+   {% if prescription.med.particularities %}
+       <div class="alert alert-info" role="alert">
+   {{prescription.med.particularities}}
+      </div>
+  {% endif %}
+</p>
+<p>
+  {% if signoff %}
+  Afgetekend door {{signoff.signoff_who}} op {{signoff.signoff_when}}.
+ {% endif %}
+  </p>
+  </p>
+  </div>
+</div>
+
+ {% endblock %}

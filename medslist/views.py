@@ -212,7 +212,7 @@ def DrugEditView(request, pk):
     else:
         drug_initial_data = {
             'name': drug.name,
-            'werkzamestof': drug.werkzamestof,
+            'ingredient': drug.ingredient,
             'use': drug.use,
             'sideeffects': drug.sideeffects,
             'particularities': drug.particularities,
@@ -506,41 +506,41 @@ def PrescriptionEditView(request, pk):
             if not p.matrix:
                 p.matrix = prescription.matrix
 
-            #p.m_d00100_p00100 = prescription.m_d00100_p00100
-            #p.m_d00200_p00100 = prescription.m_d00200_p00100
-            #p.m_d00300_p00100 = prescription.m_d00300_p00100
-            #p.m_d00400_p00100 = prescription.m_d00400_p00100
-            #p.m_d00500_p00100 = prescription.m_d00500_p00100
-            #p.m_d00600_p00100 = prescription.m_d00600_p00100
-            #p.m_d00700_p00100 = prescription.m_d00700_p00100
-            #p.m_d00100_p00200 = prescription.m_d00100_p00200
-            #p.m_d00200_p00200 = prescription.m_d00200_p00200
-            #p.m_d00300_p00200 = prescription.m_d00300_p00200
-            #p.m_d00400_p00200 = prescription.m_d00400_p00200
-            #p.m_d00500_p00200 = prescription.m_d00500_p00200
-            #p.m_d00600_p00200 = prescription.m_d00600_p00200
-            #p.m_d00700_p00200 = prescription.m_d00700_p00200
-            #p.m_d00100_p00300 = prescription.m_d00100_p00300
-            #p.m_d00200_p00300 = prescription.m_d00200_p00300
-            #p.m_d00300_p00300 = prescription.m_d00300_p00300
-            #p.m_d00400_p00300 = prescription.m_d00400_p00300
-            #p.m_d00500_p00300 = prescription.m_d00500_p00300
-            #p.m_d00600_p00300 = prescription.m_d00600_p00300
-            #p.m_d00700_p00300 = prescription.m_d00700_p00300
-            #p.m_d00100_p00400 = prescription.m_d00100_p00400
-            #p.m_d00200_p00400 = prescription.m_d00200_p00400
-            #p.m_d00300_p00400 = prescription.m_d00300_p00400
-            #p.m_d00400_p00400 = prescription.m_d00400_p00400
-            #p.m_d00500_p00400 = prescription.m_d00500_p00400
-            #p.m_d00600_p00400 = prescription.m_d00600_p00400
-            #p.m_d00700_p00400 = prescription.m_d00700_p00400
-            #p.m_d00100_p00500 = prescription.m_d00100_p00500
-            #p.m_d00200_p00500 = prescription.m_d00200_p00500
-            #p.m_d00300_p00500 = prescription.m_d00300_p00500
-            #p.m_d00400_p00500 = prescription.m_d00400_p00500
-            #p.m_d00500_p00500 = prescription.m_d00500_p00500
-            #p.m_d00600_p00500 = prescription.m_d00600_p00500
-            #p.m_d00700_p00500 = prescription.m_d00700_p00500
+            p.m_d00100_p00100 = prescription.m_d00100_p00100
+            p.m_d00200_p00100 = prescription.m_d00200_p00100
+            p.m_d00300_p00100 = prescription.m_d00300_p00100
+            p.m_d00400_p00100 = prescription.m_d00400_p00100
+            p.m_d00500_p00100 = prescription.m_d00500_p00100
+            p.m_d00600_p00100 = prescription.m_d00600_p00100
+            p.m_d00700_p00100 = prescription.m_d00700_p00100
+            p.m_d00100_p00200 = prescription.m_d00100_p00200
+            p.m_d00200_p00200 = prescription.m_d00200_p00200
+            p.m_d00300_p00200 = prescription.m_d00300_p00200
+            p.m_d00400_p00200 = prescription.m_d00400_p00200
+            p.m_d00500_p00200 = prescription.m_d00500_p00200
+            p.m_d00600_p00200 = prescription.m_d00600_p00200
+            p.m_d00700_p00200 = prescription.m_d00700_p00200
+            p.m_d00100_p00300 = prescription.m_d00100_p00300
+            p.m_d00200_p00300 = prescription.m_d00200_p00300
+            p.m_d00300_p00300 = prescription.m_d00300_p00300
+            p.m_d00400_p00300 = prescription.m_d00400_p00300
+            p.m_d00500_p00300 = prescription.m_d00500_p00300
+            p.m_d00600_p00300 = prescription.m_d00600_p00300
+            p.m_d00700_p00300 = prescription.m_d00700_p00300
+            p.m_d00100_p00400 = prescription.m_d00100_p00400
+            p.m_d00200_p00400 = prescription.m_d00200_p00400
+            p.m_d00300_p00400 = prescription.m_d00300_p00400
+            p.m_d00400_p00400 = prescription.m_d00400_p00400
+            p.m_d00500_p00400 = prescription.m_d00500_p00400
+            p.m_d00600_p00400 = prescription.m_d00600_p00400
+            p.m_d00700_p00400 = prescription.m_d00700_p00400
+            p.m_d00100_p00500 = prescription.m_d00100_p00500
+            p.m_d00200_p00500 = prescription.m_d00200_p00500
+            p.m_d00300_p00500 = prescription.m_d00300_p00500
+            p.m_d00400_p00500 = prescription.m_d00400_p00500
+            p.m_d00500_p00500 = prescription.m_d00500_p00500
+            p.m_d00600_p00500 = prescription.m_d00600_p00500
+            p.m_d00700_p00500 = prescription.m_d00700_p00500
 
             user = get_request().user
             obj_type = PRESCRIPTION
@@ -553,7 +553,7 @@ def PrescriptionEditView(request, pk):
             p.lastmod_who = get_request().user
             p.lastmod_when = timezone.now()
             p.save()
-            update_pe(p.pk)
+            #update_pe(p.pk)
             log_change(user, prescription, obj_type, msg)
             return redirect('prescription-detail', pk=p.pk)
         else:
@@ -620,7 +620,7 @@ def PrescriptionMatrixEditView(request, pk):
             p.lastmod_when = timezone.now()
             p.matrix = True
             p.save()
-            update_pe(p.pk)
+            #update_pe(p.pk)
             log_change(user, prescription, obj_type, msg)
             return redirect('prescription-detail', pk=p.pk)
         else:
@@ -634,41 +634,41 @@ def PrescriptionMatrixEditView(request, pk):
             'doctor': prescription.doctor,
             'start_date': prescription.start_date,
             'end_date': prescription.end_date,
-            #'m_d00100_p00100': prescription.m_d00100_p00100,
-            #'m_d00200_p00100': prescription.m_d00200_p00100,
-            #'m_d00300_p00100': prescription.m_d00300_p00100,
-            #'m_d00400_p00100': prescription.m_d00400_p00100,
-            #'m_d00500_p00100': prescription.m_d00500_p00100,
-            #'m_d00600_p00100': prescription.m_d00600_p00100,
-            #'m_d00700_p00100': prescription.m_d00700_p00100,
-            #'m_d00100_p00200': prescription.m_d00100_p00200,
-            #'m_d00200_p00200': prescription.m_d00200_p00200,
-            #'m_d00300_p00200': prescription.m_d00300_p00200,
-            #'m_d00400_p00200': prescription.m_d00400_p00200,
-            #'m_d00500_p00200': prescription.m_d00500_p00200,
-            #'m_d00600_p00200': prescription.m_d00600_p00200,
-            #'m_d00700_p00200': prescription.m_d00700_p00200,
-            #'m_d00100_p00300': prescription.m_d00100_p00300,
-            #'m_d00200_p00300': prescription.m_d00200_p00300,
-            #'m_d00300_p00300': prescription.m_d00300_p00300,
-            #'m_d00400_p00300': prescription.m_d00400_p00300,
-            #'m_d00500_p00300': prescription.m_d00500_p00300,
-            #'m_d00600_p00300': prescription.m_d00600_p00300,
-            #'m_d00700_p00300': prescription.m_d00700_p00300,
-            #'m_d00100_p00400': prescription.m_d00100_p00400,
-            #'m_d00200_p00400': prescription.m_d00200_p00400,
-            #'m_d00300_p00400': prescription.m_d00300_p00400,
-            #'m_d00400_p00400': prescription.m_d00400_p00400,
-            #'m_d00500_p00400': prescription.m_d00500_p00400,
-            #'m_d00600_p00400': prescription.m_d00600_p00400,
-            #'m_d00700_p00400': prescription.m_d00700_p00400,
-            #'m_d00100_p00500': prescription.m_d00100_p00500,
-            #'m_d00200_p00500': prescription.m_d00200_p00500,
-            #'m_d00300_p00500': prescription.m_d00300_p00500,
-            #'m_d00400_p00500': prescription.m_d00400_p00500,
-            #'m_d00500_p00500': prescription.m_d00500_p00500,
-            #'m_d00600_p00500': prescription.m_d00600_p00500,
-            #'m_d00700_p00500': prescription.m_d00700_p00500,
+            'm_d00100_p00100': prescription.m_d00100_p00100,
+            'm_d00200_p00100': prescription.m_d00200_p00100,
+            'm_d00300_p00100': prescription.m_d00300_p00100,
+            'm_d00400_p00100': prescription.m_d00400_p00100,
+            'm_d00500_p00100': prescription.m_d00500_p00100,
+            'm_d00600_p00100': prescription.m_d00600_p00100,
+            'm_d00700_p00100': prescription.m_d00700_p00100,
+            'm_d00100_p00200': prescription.m_d00100_p00200,
+            'm_d00200_p00200': prescription.m_d00200_p00200,
+            'm_d00300_p00200': prescription.m_d00300_p00200,
+            'm_d00400_p00200': prescription.m_d00400_p00200,
+            'm_d00500_p00200': prescription.m_d00500_p00200,
+            'm_d00600_p00200': prescription.m_d00600_p00200,
+            'm_d00700_p00200': prescription.m_d00700_p00200,
+            'm_d00100_p00300': prescription.m_d00100_p00300,
+            'm_d00200_p00300': prescription.m_d00200_p00300,
+            'm_d00300_p00300': prescription.m_d00300_p00300,
+            'm_d00400_p00300': prescription.m_d00400_p00300,
+            'm_d00500_p00300': prescription.m_d00500_p00300,
+            'm_d00600_p00300': prescription.m_d00600_p00300,
+            'm_d00700_p00300': prescription.m_d00700_p00300,
+            'm_d00100_p00400': prescription.m_d00100_p00400,
+            'm_d00200_p00400': prescription.m_d00200_p00400,
+            'm_d00300_p00400': prescription.m_d00300_p00400,
+            'm_d00400_p00400': prescription.m_d00400_p00400,
+            'm_d00500_p00400': prescription.m_d00500_p00400,
+            'm_d00600_p00400': prescription.m_d00600_p00400,
+            'm_d00700_p00400': prescription.m_d00700_p00400,
+            'm_d00100_p00500': prescription.m_d00100_p00500,
+            'm_d00200_p00500': prescription.m_d00200_p00500,
+            'm_d00300_p00500': prescription.m_d00300_p00500,
+            'm_d00400_p00500': prescription.m_d00400_p00500,
+            'm_d00500_p00500': prescription.m_d00500_p00500,
+            'm_d00600_p00500': prescription.m_d00600_p00500,
+            'm_d00700_p00500': prescription.m_d00700_p00500,
         }
 
         form = PrescriptionMatrixForm(initial=prescription_matrix_initial_data)

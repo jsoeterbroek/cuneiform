@@ -1,15 +1,12 @@
 import uuid
 #from django.conf import settings
 #from datetime import datetime
-import pickle
-import base64
-import numpy as np
 from django.db import models
 from django.contrib.auth.models import User
 #from django.utils.dateparse import parse_datetime
-#from django.utils import timezone
-#from django.db.models.signals import post_save
-#from django.dispatch import receiver
+from django.utils import timezone
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from simple_history.models import HistoricalRecords
 from audit_log.models.fields import LastUserField
 #from .get_current_user import get_request
@@ -17,7 +14,8 @@ from audit_log.models.fields import LastUserField
 #from .utils import log_addition, log_change, log_doublecheck
 #from .utils import log_addition
 
-# class Profile(models.Model):
+
+#class Profile(models.Model):
 #    user = models.OneToOneField(User, on_delete=models.CASCADE)
 #    is_ttv = models.BooleanField(
 #        "medicatie verantwoordelijke",
@@ -25,41 +23,16 @@ from audit_log.models.fields import LastUserField
 #        help_text='Bepaalt of de gebruiker medicijnverantwoordelijk is.'
 #    )
 
+
 #@receiver(post_save, sender=User)
-# def create_user_profile(instance, created):
+#def create_user_profile(sender, instance, created, **kwargs):
 #    if created:
 #        Profile.objects.create(user=instance)
-
+#
+#
 #@receiver(post_save, sender=User)
-# def save_user_profile(instance):
+#def save_user_profile(sender, instance, **kwargs):
 #    instance.profile.save()
-
-
-class DrugManager(models.Model):
-    """ Drug model """
-
-    def is_lastmod(self):
-        return self.lastmod
-
-    def create(self, name, ingredient, use, sideeffects, particularities):
-        drug = Drug(name=name, ingredient=ingredient, use=use,
-                   sideeffects=sideeffects, particularities=particularities)
-        return drug
-
-    def get_lastmod_who(self):
-        return self.lastmod_who
-
-    def get_lastmod_when(self):
-        return self.lastmod_when
-
-    def is_doublecheck(self):
-        return self.doublecheck
-
-    def get_doublecheck_who(self):
-        return self.doublecheck_who
-
-    def get_doublecheck_when(self):
-        return self.doublecheck_when
 
 
 class Drug(models.Model):
@@ -90,7 +63,6 @@ class Drug(models.Model):
     doublecheck_when = models.DateTimeField(
         "date is doublechecked", null=True, blank=True)
     history = HistoricalRecords()
-    drugs = DrugManager()
 
     def __str__(self):
         return self.name
@@ -117,6 +89,38 @@ class Drug(models.Model):
         # abstract = True
         verbose_name = 'Medicatie'
         verbose_name_plural = 'Medicatie'
+
+
+class Drugroute(models.Model):
+
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    created = models.DateTimeField(auto_now_add=True)
+    name = models.CharField(max_length=255)
+    #history = HistoricalRecords()
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        # abstract = True
+        verbose_name = 'Toediening'
+        verbose_name_plural = 'Toediening'
+
+
+class Drugfreq(models.Model):
+
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    created = models.DateTimeField(auto_now_add=True)
+    name = models.CharField(max_length=255)
+    #history = HistoricalRecords()
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        # abstract = True
+        verbose_name = 'Frequentie'
+        verbose_name_plural = 'Frequentie'
 
 
 class Doctor(models.Model):
@@ -197,7 +201,84 @@ class Prescription(models.Model):
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
     #frequency = models.ForeignKey(Drugfreq, on_delete=models.CASCADE)
-    matrix = models.BinaryField()
+    m_d00100_p00100 = models.IntegerField(
+        verbose_name="m_d00100_p00100", default=0, blank=False, null=False)
+    m_d00100_p00200 = models.IntegerField(
+        verbose_name="m_d00100_p00200", default=0, blank=False, null=False)
+    m_d00100_p00300 = models.IntegerField(
+        verbose_name="m_d00100_p00300", default=0, blank=False, null=False)
+    m_d00100_p00400 = models.IntegerField(
+        verbose_name="m_d00100_p00400", default=0, blank=False, null=False)
+    m_d00100_p00500 = models.IntegerField(
+        verbose_name="m_d00100_p00500", default=0, blank=False, null=False)
+
+    m_d00200_p00100 = models.IntegerField(
+        verbose_name="m_d00200_p00100", default=0, blank=False, null=False)
+    m_d00200_p00200 = models.IntegerField(
+        verbose_name="m_d00200_p00200", default=0, blank=False, null=False)
+    m_d00200_p00300 = models.IntegerField(
+        verbose_name="m_d00200_p00300", default=0, blank=False, null=False)
+    m_d00200_p00400 = models.IntegerField(
+        verbose_name="m_d00200_p00400", default=0, blank=False, null=False)
+    m_d00200_p00500 = models.IntegerField(
+        verbose_name="m_d00200_p00500", default=0, blank=False, null=False)
+
+    m_d00300_p00100 = models.IntegerField(
+        verbose_name="m_d00300_p00100", default=0, blank=False, null=False)
+    m_d00300_p00200 = models.IntegerField(
+        verbose_name="m_d00300_p00200", default=0, blank=False, null=False)
+    m_d00300_p00300 = models.IntegerField(
+        verbose_name="m_d00300_p00300", default=0, blank=False, null=False)
+    m_d00300_p00400 = models.IntegerField(
+        verbose_name="m_d00300_p00400", default=0, blank=False, null=False)
+    m_d00300_p00500 = models.IntegerField(
+        verbose_name="m_d00300_p00500", default=0, blank=False, null=False)
+
+    m_d00400_p00100 = models.IntegerField(
+        verbose_name="m_d00400_p00100", default=0, blank=False, null=False)
+    m_d00400_p00200 = models.IntegerField(
+        verbose_name="m_d00400_p00200", default=0, blank=False, null=False)
+    m_d00400_p00300 = models.IntegerField(
+        verbose_name="m_d00400_p00300", default=0, blank=False, null=False)
+    m_d00400_p00400 = models.IntegerField(
+        verbose_name="m_d00400_p00400", default=0, blank=False, null=False)
+    m_d00400_p00500 = models.IntegerField(
+        verbose_name="m_d00400_p00500", default=0, blank=False, null=False)
+
+    m_d00500_p00100 = models.IntegerField(
+        verbose_name="m_d00500_p00100", default=0, blank=False, null=False)
+    m_d00500_p00200 = models.IntegerField(
+        verbose_name="m_d00500_p00200", default=0, blank=False, null=False)
+    m_d00500_p00300 = models.IntegerField(
+        verbose_name="m_d00500_p00300", default=0, blank=False, null=False)
+    m_d00500_p00400 = models.IntegerField(
+        verbose_name="m_d00500_p00400", default=0, blank=False, null=False)
+    m_d00500_p00500 = models.IntegerField(
+        verbose_name="m_d00500_p00500", default=0, blank=False, null=False)
+
+    m_d00600_p00100 = models.IntegerField(
+        verbose_name="m_d00600_p00100", default=0, blank=False, null=False)
+    m_d00600_p00200 = models.IntegerField(
+        verbose_name="m_d00600_p00200", default=0, blank=False, null=False)
+    m_d00600_p00300 = models.IntegerField(
+        verbose_name="m_d00600_p00300", default=0, blank=False, null=False)
+    m_d00600_p00400 = models.IntegerField(
+        verbose_name="m_d00600_p00400", default=0, blank=False, null=False)
+    m_d00600_p00500 = models.IntegerField(
+        verbose_name="m_d00600_p00500", default=0, blank=False, null=False)
+
+    m_d00700_p00100 = models.IntegerField(
+        verbose_name="m_d00700_p00100", default=0, blank=False, null=False)
+    m_d00700_p00200 = models.IntegerField(
+        verbose_name="m_d00700_p00200", default=0, blank=False, null=False)
+    m_d00700_p00300 = models.IntegerField(
+        verbose_name="m_d00700_p00300", default=0, blank=False, null=False)
+    m_d00700_p00400 = models.IntegerField(
+        verbose_name="m_d00700_p00400", default=0, blank=False, null=False)
+    m_d00700_p00500 = models.IntegerField(
+        verbose_name="m_d00700_p00500", default=0, blank=False, null=False)
+
+    matrix = models.BooleanField("is matrix filled out", default=False)
     matrix_hr_summary = models.TextField(default="", blank=False, null=False)
     lastmod = models.BooleanField("is last modified", default=False)
     lastmod_who = LastUserField(
@@ -232,18 +313,8 @@ class Prescription(models.Model):
     def get_doublecheck_when(self):
         return self.doublecheck_when
 
-    # def set_matrix(self):
-    #    arr = np.arange(42)
-    #    matrix = arr.reshape(7, 6) # seven days, six periods
-    #    matrix_bytes = pickle.dumps(matrix)
-    #    matrix_base64 = base64.b64encode(matrix_bytes)
-    #    self.model.matrixfield = matrix_base64
-    #    #return self.model.matrixfield
-
-    # def get_matrix(self):
-    #    matrix_bytes = base64.base64decode(self.model.matrixfield)
-    #    self.matrix = pickle.loads(matrix_bytes)
-    #    return self.matrix
+    def is_matrix(self):
+        return self.matrix
 
     class Meta:
         # abstract = True

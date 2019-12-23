@@ -1,0 +1,15 @@
+[
+{
+  "model": "signoff.signoff",
+  "pk": 1,
+  "fields": {
+    "uuid": "daa1134f-d0b1-46c8-b010-f10cb14ed36b",
+    "created": "2019-12-05T09:18:52.701Z",
+    "remarks": "doorgeslikt, maar op de grond gevalllen",
+    "signoff": true,
+    "signoff_who": 4,
+    "signoff_when": "2019-12-05T09:18:16Z",
+    "prescription": 10
+  }
+}
+]

@@ -114,12 +114,125 @@ class PrescriptionMatrixForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(PrescriptionMatrixForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.helper.template = 'table_inline_form.html'
+        self.helper.template = 'layout/cuneiform_table_inline_form.html'
+        self.helper.layout = Layout(
+            Div(
+                Field('m_d00100_p00100'),
+                Field('m_d00100_p00200'),
+                Field('m_d00100_p00300'),
+                Field('m_d00100_p00400'),
+                Field('m_d00100_p00500'),
+                ),
+            Div(
+                Field('m_d00200_p00100'),
+                Field('m_d00200_p00200'),
+                Field('m_d00200_p00300'),
+                Field('m_d00200_p00400'),
+                Field('m_d00200_p00500'),
+                ),
+            Div(
+                Field('m_d00300_p00100'),
+                Field('m_d00300_p00200'),
+                Field('m_d00300_p00300'),
+                Field('m_d00300_p00400'),
+                Field('m_d00300_p00500'),
+                ),
+            Div(
+                Field('m_d00400_p00100'),
+                Field('m_d00400_p00200'),
+                Field('m_d00400_p00300'),
+                Field('m_d00400_p00400'),
+                Field('m_d00400_p00500'),
+                ),
+            Div(
+                Field('m_d00500_p00100'),
+                Field('m_d00500_p00200'),
+                Field('m_d00500_p00300'),
+                Field('m_d00500_p00400'),
+                Field('m_d00500_p00500'),
+                ),
+            Div(
+                Field('m_d00600_p00100'),
+                Field('m_d00600_p00200'),
+                Field('m_d00600_p00300'),
+                Field('m_d00600_p00400'),
+                Field('m_d00600_p00500'),
+                ),
+            Div(
+                Field('m_d00700_p00100'),
+                Field('m_d00700_p00200'),
+                Field('m_d00700_p00300'),
+                Field('m_d00700_p00400'),
+                Field('m_d00700_p00500'),
+                ),
+        )
         self.helper.form_id = 'PrescriptionMatrixForm'
-        self.helper.form_class = 'cuneiform_prescription_form'
+        self.helper.form_class = 'hmas_prescription_form'
         self.helper.form_method = 'post'
         self.helper.add_input(Submit('submit', 'Opslaan'))
 
     class Meta:
         model = Prescription
-        fields = {}
+        fields = (
+            'm_d00100_p00100', 'm_d00100_p00200', 'm_d00100_p00300', 'm_d00100_p00400', 'm_d00100_p00500',
+            'm_d00200_p00100', 'm_d00200_p00200', 'm_d00200_p00300', 'm_d00200_p00400', 'm_d00200_p00500',
+            'm_d00300_p00100', 'm_d00300_p00200', 'm_d00300_p00300', 'm_d00300_p00400', 'm_d00300_p00500',
+            'm_d00400_p00100', 'm_d00400_p00200', 'm_d00400_p00300', 'm_d00400_p00400', 'm_d00400_p00500',
+            'm_d00500_p00100', 'm_d00500_p00200', 'm_d00500_p00300', 'm_d00500_p00400', 'm_d00500_p00500',
+            'm_d00600_p00100', 'm_d00600_p00200', 'm_d00600_p00300', 'm_d00600_p00400', 'm_d00600_p00500',
+            'm_d00700_p00100', 'm_d00700_p00200', 'm_d00700_p00300', 'm_d00700_p00400', 'm_d00700_p00500',
+            )
+        labels = {
+            'm_d00100_p00100': 'Maandag',
+            'm_d00100_p00200': 'Maandag',
+            'm_d00100_p00300': 'Maandag',
+            'm_d00100_p00400': 'Maandag',
+            'm_d00100_p00500': 'Maandag',
+            'm_d00200_p00100': 'Dinsdag',
+            'm_d00200_p00200': 'Dinsdag',
+            'm_d00200_p00300': 'Dinsdag',
+            'm_d00200_p00400': 'Dinsdag',
+            'm_d00200_p00500': 'Dinsdag',
+            'm_d00300_p00100': 'Woensdag',
+            'm_d00300_p00200': 'Woensdag',
+            'm_d00300_p00300': 'Woensdag',
+            'm_d00300_p00400': 'Woensdag',
+            'm_d00300_p00500': 'Woensdag',
+            'm_d00400_p00100': 'Donderdag',
+            'm_d00400_p00200': 'Donderdag',
+            'm_d00400_p00300': 'Donderdag',
+            'm_d00400_p00400': 'Donderdag',
+            'm_d00400_p00500': 'Donderdag',
+            'm_d00500_p00100': 'Vrijdag',
+            'm_d00500_p00200': 'Vrijdag',
+            'm_d00500_p00300': 'Vrijdag',
+            'm_d00500_p00400': 'Vrijdag',
+            'm_d00500_p00500': 'Vrijdag',
+            'm_d00600_p00100': 'Zaterdag',
+            'm_d00600_p00200': 'Zaterdag',
+            'm_d00600_p00300': 'Zaterdag',
+            'm_d00600_p00400': 'Zaterdag',
+            'm_d00600_p00500': 'Zaterdag',
+            'm_d00700_p00100': 'Zondag',
+            'm_d00700_p00200': 'Zondag',
+            'm_d00700_p00300': 'Zondag',
+            'm_d00700_p00400': 'Zondag',
+            'm_d00700_p00500': 'Zondag',
+        }
+        help_texts = {
+            'm_d00100_p00100': '07:00',
+            'm_d00100_p00200': '08:00',
+            'm_d00100_p00300': '12:00',
+            'm_d00100_p00400': '17:00',
+            'm_d00100_p00500': '21:00',
+            'm_d00200_p00100': '07:00',
+            'm_d00200_p00200': '08:00',
+            'm_d00200_p00300': '12:00',
+            'm_d00200_p00400': '17:00',
+            'm_d00200_p00500': '21:00',
+            'm_d00300_p00100': '07:00',
+            'm_d00300_p00200': '08:00',
+            'm_d00300_p00300': '12:00',
+            'm_d00300_p00400': '17:00',
+            'm_d00300_p00500': '21:00',
+        }
