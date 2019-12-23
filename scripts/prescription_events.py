@@ -9,7 +9,7 @@ from django.conf import settings
 from signoff.models import Signoff, PrescriptionEvent
 from signoff.utils import get_period, get_today, get_matrix_lookupkey, calculate_period, is_prescription_signedoff_today_period
 from medslist.utils import log_signoff
-from core.models import CuneiformLogEntry, SIGNOFF
+from log.models import CuneiformLogEntry, SIGNOFF
 from medslist.models import Client, Prescription, Drug
 from medslist.get_current_user import get_request
 
@@ -51,7 +51,7 @@ def run():
             prescription_name = prescription.name
             prescription_start_date = prescription.start_date
             prescription_end_date = prescription.end_date
-            prescription_med_id = prescription.med.pk
+            prescription_drug_id = prescription.drug.pk
             prescription_client_id = prescription.client.pk
 
             p = Prescription.objects.get(pk=1)
@@ -85,7 +85,7 @@ def run():
                     aware_d = make_aware(d)
                     strd = aware_d.strftime('%d, %m, %Y')
                     prescriptionevent_name = str(prescription_id) + "_" + str(prescription_client_id) + \
-                        "_" + str(prescription_med_id) + "_" + period + \
+                        "_" + str(prescription_drug_id) + "_" + period + \
                         "_" + aware_d.strftime('%d%m%Y')
 
                     # skip all PrescriptionEvents for where the amount of medicine is 1 or more
@@ -101,7 +101,7 @@ def run():
                             tobe_administered_period=period,
                             tobe_administered_howmuch=prescription_matrix_howmuch,
                             prescription_id=prescription_id,
-                            tobe_administered_what_id=prescription_med_id,
+                            tobe_administered_what_id=prescription_drug_id,
                             tobe_administered_who_id=prescription_client_id
                         )
 
