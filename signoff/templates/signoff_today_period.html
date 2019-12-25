@@ -12,13 +12,13 @@
     {% if p.is_signedoff %}
       <tr>
           <td><del>{{p.tobe_administered_who}}</del></td>
-          <td><del>{{p.tobe_administered_what}}</del></td>
+          <td><del>{{p.tobe_administered_howmuch}} {{p.tobe_administered_what}}</del></td>
           <td>Afgetekend {{p.is_signedoff_when}} door {{p.is_signedoff_who}}</td>
       </tr>
       {% else %}
       <tr>
           <td><a href="{% url 'signoff-today-pe' pe_id=p.pk %}">{{p.tobe_administered_who}}</a></td>
-          <td>{{p.tobe_administered_what}}</td>
+          <td>{{p.tobe_administered_howmuch}} {{p.tobe_administered_what}}</td>
           <td>Nog niet afgetekend</td>
       </tr>
       {% endif %}

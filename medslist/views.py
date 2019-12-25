@@ -12,24 +12,21 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages import constants as messages
 from log.models import CuneiformLogEntry, DRUG, CLIENT, PRESCRIPTION
-#from core.create_pe import create_pe, update_pe
+from signoff.pe import create_pe, update_pe
 from .forms import PrescriptionForm, PrescriptionMatrixForm, ClientForm, DrugForm
 from .models import Prescription, Client, Drug
 from .utils import log_addition, log_change, log_doublecheck
 from .get_current_user import get_request
 
-
 def index(request):
     """ index """
     return render(request, 'medslist_index.html')
-
 
 @login_required
 def UserProfileView(request):
     """ view """
     context = {}
     return render(request, 'accounts/profile.html', context)
-
 
 # mag alleen door TTV-ers gezien worden
 # if statement in template
@@ -49,7 +46,6 @@ def LogListView(request):
 
     context = {'plist': plist}
     return render(request, 'log/log_list.html', context)
-
 
 @login_required
 def OverviewDoublecheckListView(request):
@@ -283,7 +279,6 @@ def ClientDoublecheckNextView(request, pk):
     log_doublecheck(user, client, obj_type, msg)
     return redirect('client-detail', pk=client.pk)
 
-
 @login_required
 def ClientDetailView(request, pk):
     """ Detail view (index) or Client object """
@@ -370,9 +365,13 @@ def ClientEditView(request, pk):
             obj_type = CLIENT
             if p.doublecheck:
                 p.doublecheck = False
-                msg = "Client %s %s is aangepast; dubbelcontrole vlag verwijderd" % (client.firstname, client.lastname)
+                msg = "Client %s %s is aangepast; dubbelcontrole vlag verwijderd" % (
+                    client.firstname,
+                    client.lastname)
             else:
-                msg = "Client %s %s is aangepast" % (client.firstname, client.lastname)
+                msg = "Client %s %s is aangepast" % (
+                    client.firstname,
+                    client.lastname)
             p.lastmod = True
             p.lastmod_who = get_request().user
             p.lastmod_when = timezone.now()
@@ -546,14 +545,14 @@ def PrescriptionEditView(request, pk):
             obj_type = PRESCRIPTION
             if p.doublecheck:
                 p.doublecheck = False
-                msg = "Prescriptie %s is aangepast, dubbelcontrole vlag verwijderd " % prescription.name
+                msg = "Prescriptie %s is aangepast, dubbelcontrole vlag verwijderd" % prescription.name
             else:
                 msg = "Prescriptie %s is aangepast" % prescription.name
             p.lastmod = True
             p.lastmod_who = get_request().user
             p.lastmod_when = timezone.now()
             p.save()
-            #update_pe(p.pk)
+            update_pe(p.pk)
             log_change(user, prescription, obj_type, msg)
             return redirect('prescription-detail', pk=p.pk)
         else:
@@ -612,7 +611,7 @@ def PrescriptionMatrixEditView(request, pk):
             obj_type = PRESCRIPTION
             if p.doublecheck:
                 p.doublecheck = False
-                msg = "Prescriptie matrix %s is aangepast, dubbelcontrole vlag verwijderd " % prescription.name
+                msg = "Prescriptie matrix %s is aangepast, dubbelcontrole vlag verwijderd" % prescription.name
             else:
                 msg = "Prescriptie matrix %s is aangepast" % prescription.name
             p.lastmod = True
@@ -620,7 +619,7 @@ def PrescriptionMatrixEditView(request, pk):
             p.lastmod_when = timezone.now()
             p.matrix = True
             p.save()
-            #update_pe(p.pk)
+            update_pe(p.pk)
             log_change(user, prescription, obj_type, msg)
             return redirect('prescription-detail', pk=p.pk)
         else:
@@ -694,7 +693,7 @@ def PrescriptionAddView(request):
             p.lastmod_who = get_request().user
             p.lastmod_when = timezone.now()
             p.save()
-            #create_pe(p.pk)
+            create_pe(p.pk)
             log_addition(user, p, obj_type, msg)
             return redirect('prescription-detail', pk=p.pk)
         else:

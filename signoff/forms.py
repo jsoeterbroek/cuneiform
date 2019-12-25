@@ -15,4 +15,4 @@ class PeForm(forms.ModelForm):
 
     class Meta:
         model = PrescriptionEvent
-        fields = []
+        fields = {}

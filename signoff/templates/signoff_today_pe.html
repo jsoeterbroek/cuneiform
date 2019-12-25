@@ -5,9 +5,9 @@
 {% block content %}
 <p>&nbsp;</p>
   <h2>Aftekenen Vandaag</h2>
-  <h3></h3>
+  <h3>{{period_hr}}</h3>
   <!--<h4>{{client.lastname}}, {{client.firstname}} ({{client.dateofbirth}}) </h4>-->
-  <!-- <h6>{{weekday_hr}}, {{dtime_date_today}}</h6> -->
+  <h6>{{weekday_hr}}, {{aware_dtime_date_today}}</h6>
   {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
 <div class="card bg-light mb-3" style="width: 30rem;">

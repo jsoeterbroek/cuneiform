@@ -125,36 +125,6 @@ class ModelTest(TestCase):
         is_doublecheck = p1.is_doublecheck()
         self.assertEqual(is_doublecheck, False)
 
-    def test_model_prescription_matrix(self):
-        """
-        scenario:
-          - create a prescription with a (empty) matrix
-          - #1 get and set numpy empty matrix
-          - #2 get matrix as pandas dataframe, change value and
-               set back to db
-          - #3 do the same via method update_matrix (which will be used
-               in views)
-        """
-        print("test_model_prescription_matrix")
-        p1 = Prescription.objects.get(id=1)
-        # subtest #1
-        npmatrix_1 = p1.get_matrix_as_np()
-        p1.set_matrix_from_np(npmatrix_1)
-        npmatrix_2 = p1.get_matrix_as_np()
-        self.assertEqual(npmatrix_1.all(), npmatrix_2.all())
-        # subtest #2
-        pd_dataframe1 = p1.get_matrix_as_df()
-        pd_dataframe1.at['p00500', 'mon'] = 10
-        p1.set_matrix_from_df(pd_dataframe1)
-        # subtest #3
-        v1 = 12
-        with self.assertRaises(ValueError):
-            p1.update_matrix('10400', 'sat', v1) # should raise value error (wrong period)
-        p1.update_matrix('p00400', 'sat', v1) # value 12 on 4th period on saturday
-        np = p1.get_matrix_as_np()
-        v2 = int(np[3][5])
-        self.assertEqual(v1, v2)
-
     def test_model_prescription_auditlog(self):
         print("test_model_prescription_auditlog")
         pass

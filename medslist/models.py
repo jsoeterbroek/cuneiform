@@ -2,11 +2,13 @@ import uuid
 #from django.conf import settings
 #from datetime import datetime
 from django.db import models
+from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 #from django.utils.dateparse import parse_datetime
 from django.utils import timezone
-from django.db.models.signals import post_save
-from django.dispatch import receiver
+#from django.db.models.signals import post_save
+#from django.dispatch import receiver
+from django.utils.translation import gettext_lazy as _
 from simple_history.models import HistoricalRecords
 from audit_log.models.fields import LastUserField
 #from .get_current_user import get_request
@@ -279,7 +281,6 @@ class Prescription(models.Model):
         verbose_name="m_d00700_p00500", default=0, blank=False, null=False)
 
     matrix = models.BooleanField("is matrix filled out", default=False)
-    matrix_hr_summary = models.TextField(default="", blank=False, null=False)
     lastmod = models.BooleanField("is last modified", default=False)
     lastmod_who = LastUserField(
         on_delete=models.PROTECT, related_name="presciption_lastmod_who")
@@ -298,6 +299,18 @@ class Prescription(models.Model):
     def is_lastmod(self):
         return self.lastmod
 
+    def set_lastmod(self, who):
+
+        # when a modification is made, doublecheck flag has to be
+        # set back to false
+        if self.is_doublecheck():
+            self.doublecheck = False
+
+        self.lastmod_who = who
+        self.lastmod_when = timezone.now()
+        self.lastmod = True
+        return self.lastmod
+
     def get_lastmod_who(self):
         return self.lastmod_who
 
@@ -312,6 +325,17 @@ class Prescription(models.Model):
 
     def get_doublecheck_when(self):
         return self.doublecheck_when
+
+    def set_doublecheck(self, who):
+
+        # do not allow the lastmod user to be same as
+        # doublecheck user
+        if self.lastmod_who == who:
+            raise ValidationError(_('lastmod user cannot be the same as doublecheck user.'))
+        self.doublecheck_who = who
+        self.doublecheck_when = timezone.now()
+        self.doublecheck = True
+        return self.doublecheck
 
     def is_matrix(self):
         return self.matrix

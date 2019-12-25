@@ -66,6 +66,11 @@ def SignoffTodayPe(request, pe_id):
     """ View for Signoff today for pe """
 
     pobj = PrescriptionEvent.objects.get(pk=pe_id)
+    period_hr = get_period()
+    weekday_hr = get_today()
+    dtime_date_today = datetime.today()
+    dtime_date_today_str = datetime.today().strftime("%d %B %Y")
+    aware_dtime_date_today = make_aware(dtime_date_today)
 
     if request.method == "POST":
         if pobj:
@@ -92,7 +97,10 @@ def SignoffTodayPe(request, pe_id):
         form = PeForm()
         context = {
             'pobj': pobj,
+            'period_hr': period_hr,
             'form': form,
+            'weekday_hr': weekday_hr,
+            'aware_dtime_date_today': aware_dtime_date_today,
         }
         return render(request, 'signoff_today_pe.html', context)
 
