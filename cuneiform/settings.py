@@ -20,6 +20,7 @@ ALLOWED_HOSTS = ['localhost', 'h2858779.stratoserver.net', 'cuneiform.healthcare
 INSTALLED_APPS = [
     'medslist.apps.MedslistConfig',
     'signoff.apps.SignoffConfig',
+    'report.apps.ReportConfig',
     'log.apps.LogConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -52,9 +53,10 @@ ROOT_URLCONF = 'cuneiform.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        #'DIRS': [os.path.join(BASE_DIR, 'cuneiform', 'templates'), os.path.join(BASE_DIR, 'templates'),
-        #         os.path.join(BASE_DIR, 'signoff', 'templates')],
-        'DIRS': [os.path.join(BASE_DIR, 'cuneiform', 'templates'), os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'cuneiform', 'templates'),
+            os.path.join(BASE_DIR, 'templates')
+            ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

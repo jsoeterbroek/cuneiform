@@ -545,9 +545,10 @@ def PrescriptionEditView(request, pk):
             obj_type = PRESCRIPTION
             if p.doublecheck:
                 p.doublecheck = False
-                msg = "Prescriptie %s is aangepast, dubbelcontrole vlag verwijderd" % prescription.name
+                msg = "Prescriptie %s aangepast, \
+                    dubbelcontrole vlag verwijderd" % prescription.name
             else:
-                msg = "Prescriptie %s is aangepast" % prescription.name
+                msg = "Prescriptie %s aangepast" % prescription.name
             p.lastmod = True
             p.lastmod_who = get_request().user
             p.lastmod_when = timezone.now()
@@ -611,9 +612,10 @@ def PrescriptionMatrixEditView(request, pk):
             obj_type = PRESCRIPTION
             if p.doublecheck:
                 p.doublecheck = False
-                msg = "Prescriptie matrix %s is aangepast, dubbelcontrole vlag verwijderd" % prescription.name
+                msg = "Prescriptie matrix %s aangepast, \
+                    dubbelcontrole vlag verwijderd" % prescription.name
             else:
-                msg = "Prescriptie matrix %s is aangepast" % prescription.name
+                msg = "Prescriptie matrix %s aangepast" % prescription.name
             p.lastmod = True
             p.lastmod_who = get_request().user
             p.lastmod_when = timezone.now()
