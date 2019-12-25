@@ -1,4 +1,4 @@
-![Cuneiform](http://cuneiform.healthcare/img/cuneiform_logo_300.png)
+![Cuneiform](http://cuneiform.healthcare/static/img/cuneiform_logo_300.png)
 
 # Cuneiform
 Cuneiform is system for use in healthcare and/or homes for people with disabilities to registration and administration of medication, including signoff, double checks en warnings for forgotten distribution of medication

@@ -10,22 +10,22 @@
     <!-- Three columns of text -->
     <div class="row">
       <div class="col-lg-4">
-	<a class="btn btn-sm" role="button"> {% octicon "note"  height="140" class="large"  %} </a>
+	<a class="btn btn-sm" role="button"> {% octicon "note"  height="140" class="large" %} </a>
         <h2>Registratie</h2>
         <p>In de Registratie module registreer je de medicijnen, clienten en prescripties van de huisartsen, inclusief dubbelcontrole door collega.</p>
-	<p><a class="btn btn-primary" href="{% url "medslist-index" %}" role="button">Aan de slag</a></p>
+	<p><a class="btn btn-primary" href="{% url 'medslist-index' %}" role="button">Aan de slag</a></p>
       </div><!-- /.col-lg-4 -->
       <div class="col-lg-4">
-	<a class="btn btn-sm" role="button"> {% octicon "checklist"  height="140" class="large"  %} </a>
+	<a class="btn btn-sm" role="button"> {% octicon "checklist"  height="140" class="large" %} </a>
         <h2>Aftekenen</h2>
         <p>Deze module kun je gebruiken met smartphone of tablet om de prescripties af te tekenen bij de verstrekking.</p>
-	<p><a class="btn btn-primary" href="{% url "signoff-index" %}" role="button">Aan de slag</a></p>
+	<p><a class="btn btn-primary" href="{% url 'signoff-index' %}" role="button">Aan de slag</a></p>
       </div><!-- /.col-lg-4 -->
       <div class="col-lg-4">
-	<a class="btn btn-sm" href="#url" role="button"> {% octicon "graph"  height="140" class="large" color=".hmas_color_1" %} </a>
+	<a class="btn btn-sm" role="button"> {% octicon "graph"  height="140" class="large" %} </a>
         <h2>Rapportage</h2>
-	<p>In de rapportage module kun je gegevens opvragen omtrent de acties en rapportages uitdraaienen. Deze module kan alleen gebruikt worden door gebruikers die de medicijnverantwoordelijke (ttv) rol hebben.<br><i>Deze module is nog niet geimplementeerd</i></p>
-        <p><a class="btn btn-secondary" href="#" role="button">Aan de slag</a></p>
+	<p>In de rapportage module kun je gegevens opvragen omtrent de acties en rapportages uitdraaienen. Deze module kan alleen gebruikt worden door gebruikers die de medicijnverantwoordelijke (ttv) rol hebben.</p>
+        <p><a class="btn btn-primary" href="{% url 'report-index' %}" role="button">Aan de slag</a></p>
       </div><!-- /.col-lg-4 -->
     </div><!-- /.row -->
 
