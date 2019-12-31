@@ -1,0 +1,63 @@
+{% extends 'report_base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+  <form method="get">
+    <div class="card bg-light" style="background-color:#333;">
+    <div class="card-body">
+      <h4>Filter</h4>
+      <div class="row">
+        <div class="form-group col-sm-4 col-md-3">
+          {{ filter.form.prescription.label_tag }}
+          {% render_field filter.form.prescription class="form-control" %}
+        </div>
+        <div class="form-group col-sm-4 col-md-3">
+            {{ filter.form.tobe_administered_who.label_tag }}
+            {% render_field filter.form.tobe_administered_who class="form-control" %}
+          </div>
+          <div class="form-group col-sm-4 col-md-3">
+            {{ filter.form.tobe_administered_what.label_tag }}
+            {% render_field filter.form.tobe_administered_what class="form-control" %}
+          </div>
+        <div class="form-group col-sm-4 col-md-3">
+          {{ filter.form.tobe_administered_date.label_tag }}
+          {% render_field filter.form.tobe_administered_date class="form-control" %}
+        </div>
+        <div class="form-group col-sm-4 col-md-3">
+          {{ filter.form.tobe_administered_period.label_tag }}
+          {% render_field filter.form.tobe_administered_period class="form-control" %}
+        </div>
+
+      </div>
+      <button type="submit" class="btn btn-primary">
+        <span class="glyphicon glyphicon-search"></span> Search
+      </button>
+    </div>
+</div>
+  </form>
+<p>&nbsp;</p>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Prescription</th>
+        <th>tobe_administered_who</th>
+        <th>tobe_administered_what</th>
+        <th>Date</th>
+        <th>Period</th>
+ 
+      </tr>
+    </thead>
+    <tbody>        
+    {% for pe in filter.qs %}
+        <tr>
+          
+          <td>{{ pe.prescription }}</td>
+          <td>{{ pe.tobe_administered_who }}</td>
+          <td>{{ pe.tobe_administered_what }}</td>
+          <td>{{ pe.tobe_administered_date }}</td>
+          <td>{{ pe.tobe_administered_period }}</td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

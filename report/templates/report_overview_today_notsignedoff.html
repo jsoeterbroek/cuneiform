@@ -1,0 +1,22 @@
+{% extends "report_base.html" %}
+{% load octicons %}
+{% block content %}
+<p>&nbsp;</p>
+  <h1>Overzicht</h1>
+  <h2>Niet afgetekend vandaag</h2>
+  <h4>{{dtime_date_today}}</h4>
+
+  <table class="table table-striped table-sm">
+      
+    {% for p in plist %}
+      <tr>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;{{p.tobe_administered_who}}</td>
+          <td>{{p.tobe_administered_what}}</td>
+          <td>{{p.tobe_administered_period}}</td>
+      </tr>
+    {% endfor %}
+    </table>
+
+  {% include "pagination.html" %}
+
+{% endblock %}

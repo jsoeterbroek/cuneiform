@@ -117,39 +117,3 @@ def SignoffClient(request):
 
     return render(request, 'signoff_client.html')
 
-@login_required
-def SignoffOverviewTodayNotsignedoff(request):
-    """ View for Signoff overview not signed off today """
-
-    dtime_date_today = datetime.today()
-    dtime_date_today_str = datetime.today().strftime("%d %B %Y")
-    aware_dtime_date_today = make_aware(dtime_date_today)
-
-    # get all prescription events, per period
-    #   - only today
-    #   - exclude already signedoff
-    plist_p00100 = PrescriptionEvent.objects.all().filter(
-        tobe_administered_date=aware_dtime_date_today).exclude(
-            is_signedoff=True).filter(tobe_administered_period='p00100')
-    plist_p00200 = PrescriptionEvent.objects.all().filter(
-        tobe_administered_date=aware_dtime_date_today).exclude(
-            is_signedoff=True).filter(tobe_administered_period='p00200')
-    plist_p00300 = PrescriptionEvent.objects.all().filter(
-        tobe_administered_date=aware_dtime_date_today).exclude(
-            is_signedoff=True).filter(tobe_administered_period='p00300')
-    plist_p00400 = PrescriptionEvent.objects.all().filter(
-        tobe_administered_date=aware_dtime_date_today).exclude(
-            is_signedoff=True).filter(tobe_administered_period='p00400')
-    plist_p00500 = PrescriptionEvent.objects.all().filter(
-        tobe_administered_date=aware_dtime_date_today).exclude(
-            is_signedoff=True).filter(tobe_administered_period='p00500')
-
-    context = {
-        'plist_p00100': plist_p00100,
-        'plist_p00200': plist_p00200,
-        'plist_p00300': plist_p00300,
-        'plist_p00400': plist_p00400,
-        'plist_p00500': plist_p00500,
-        'dtime_date_today': dtime_date_today_str,
-    }
-    return render(request, 'signoff_overview_today_notsignedoff.html', context)

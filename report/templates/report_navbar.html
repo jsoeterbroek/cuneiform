@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <!--Navbar-->
 <nav class="navbar navbar-expand-sm bg-white">
   <!-- Navbar brand -->
@@ -20,14 +21,17 @@
 	    -->
 
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle text-dark" href="{% url 'client' %}" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Aftekenen</a>
+        <a class="nav-link dropdown-toggle text-dark" href="{% url 'client' %}" id="navbarDropdownMenuLink" data-toggle="dropdown" 
+            aria-haspopup="true" aria-expanded="false">{% trans "Reporting" %}</a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	    <a class="dropdown-item" href="{% url 'signoff-today' %}">Aftekenen vandaag</a>
-        <!--<a class="dropdown-item" href="#">Aftekenen client</a>-->
+	      <a class="dropdown-item" href="#">Aftekenen vandaag</a>
+        <a class="dropdown-item" href="#">Afgetekend vandaag</a>
+        <a class="dropdown-item" href="{% url 'report-overview-today-notsignedoff' %}">Niet afgetekend vandaag</a>
+        <a class="dropdown-item" href="{% url 'report-overview-pe' %}">{% trans "Custom Overview" %}</a>
+        <a class="dropdown-item" href="{% url 'report-overview-pe-signoff' %}">{% trans "Custom Overview Signoff" %}</a>
+
         </div>
       </li>
-
-    
 
     </ul>
 

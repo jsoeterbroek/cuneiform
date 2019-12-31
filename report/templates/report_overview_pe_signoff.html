@@ -1,0 +1,60 @@
+{% extends 'report_base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+  <form method="get">
+    <div class="card bg-light" style="background-color:#333;">
+    <div class="card-body">
+      <h4>Filter</h4>
+      <div class="row">
+        <div class="form-group col-sm-4 col-md-3">
+          {{ filter.form.prescription.label_tag }}
+          {% render_field filter.form.prescription class="form-control" %}
+        </div>
+
+        <div class="form-group col-sm-4 col-md-3">
+            {{ filter.form.is_signedoff.label_tag }}
+            <div class="radio-inline">
+                <label><input type="radio" name="is_signedoff" value="True"> yes</label>
+                <label><input type="radio" name="is_signedoff" value="False"> no</label>
+            </div>
+          </div>
+
+        <div class="form-group col-sm-4 col-md-3">
+            {{ filter.form.is_signedoff_who.label_tag }}
+            {% render_field filter.form.is_signedoff_who class="form-control" %}
+        </div>
+        <div class="form-group col-sm-4 col-md-3">
+            {{ filter.form.is_signedoff_when.label_tag }}
+            {% render_field filter.form.is_signedoff_when class="form-control" %}
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">
+        <span class="glyphicon glyphicon-search"></span> Search
+      </button>
+    </div>
+</div>
+  </form>
+<p>&nbsp;</p>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Prescription</th>
+
+        <th>Signedoff</th>
+        <th>Signedoff who</th>
+        <th>Signedoff when</th>
+      </tr>
+    </thead>
+    <tbody>        
+    {% for pe in filter.qs %}
+        <tr>
+          <td>{{ pe.prescription }}</td>
+   
+          <td>{{ pe.is_signedoff }}</td>
+          <td>{{ pe.is_signedoff_who }}</td>
+          <td>{{ pe.is_signedoff_when }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

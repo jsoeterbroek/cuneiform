@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'crispy_forms',
     'octicons',
+    'widget_tweaks',
     'simple_history',
     'organizations',
 ]
@@ -46,6 +47,7 @@ MIDDLEWARE = [
     'simple_history.middleware.HistoryRequestMiddleware',
     'audit_log.middleware.UserLoggingMiddleware',
     'medslist.get_current_user.RequestMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'cuneiform.urls'
