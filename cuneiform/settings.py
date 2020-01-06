@@ -14,7 +14,8 @@ DATABASES = SECRET_DATABASES
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'h2858779.stratoserver.net', 'cuneiform.healthcare']
+ALLOWED_HOSTS = ['localhost',
+                 'h2858779.stratoserver.net', 'cuneiform.healthcare']
 
 # Application definition
 INSTALLED_APPS = [
@@ -34,6 +35,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'simple_history',
     'organizations',
+    'django_celery_results',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +60,7 @@ TEMPLATES = [
         'DIRS': [
             os.path.join(BASE_DIR, 'cuneiform', 'templates'),
             os.path.join(BASE_DIR, 'templates')
-            ],
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -111,3 +113,6 @@ CUNEIFORM_COLOR_1 = 'lightblue'
 CUNEIFORM_COLOR_2 = 'grey'
 
 SOUTH_TESTS_MIGRATE = False
+
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_CACHE_BACKEND = 'django-cache'

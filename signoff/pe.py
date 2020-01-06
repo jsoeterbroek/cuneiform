@@ -2,6 +2,7 @@ import time
 import string
 import random
 import pandas as pd
+from celery.decorators import task
 from django.utils import timezone
 from django.utils.timezone import make_aware
 from signoff.models import PrescriptionEvent
@@ -11,9 +12,12 @@ start = time.time()
 now = timezone.now()
 nowstr = now.strftime('%d-%m-%Y %T')
 
+
 def random_gen(size=18, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
 
+
+@task(name='create_pe')
 def create_pe(prescription_id):
 
     periods = ['p00100', 'p00200', 'p00300', 'p00400', 'p00500']
@@ -46,6 +50,8 @@ def create_pe(prescription_id):
                     tobe_administered_who_id=prescription_client_id
                 )
 
+
+@task(name='update_pe')
 def update_pe(prescription_id):
 
     periods = ['p00100', 'p00200', 'p00300', 'p00400', 'p00500']

@@ -553,7 +553,7 @@ def PrescriptionEditView(request, pk):
             p.lastmod_who = get_request().user
             p.lastmod_when = timezone.now()
             p.save()
-            update_pe(p.pk)
+            update_pe.delay(p.pk)
             log_change(user, prescription, obj_type, msg)
             return redirect('prescription-detail', pk=p.pk)
         else:
@@ -621,7 +621,7 @@ def PrescriptionMatrixEditView(request, pk):
             p.lastmod_when = timezone.now()
             p.matrix = True
             p.save()
-            update_pe(p.pk)
+            update_pe.delay(p.pk)
             log_change(user, prescription, obj_type, msg)
             return redirect('prescription-detail', pk=p.pk)
         else:
@@ -695,7 +695,7 @@ def PrescriptionAddView(request):
             p.lastmod_who = get_request().user
             p.lastmod_when = timezone.now()
             p.save()
-            create_pe(p.pk)
+            create_pe.delay(p.pk)
             log_addition(user, p, obj_type, msg)
             return redirect('prescription-detail', pk=p.pk)
         else:
