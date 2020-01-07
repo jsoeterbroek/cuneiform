@@ -19,7 +19,6 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 # Load task modules from all registered Django app configs.
 app.autodiscover_tasks()
 
-
 # Optional configuration, see the application user guide.
 app.conf.update(
     result_expires=3600,

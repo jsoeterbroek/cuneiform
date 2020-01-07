@@ -139,3 +139,7 @@ organisation.md
 # vim .swp 
 .swp
 .vscode/settings.json
+
+# sublime
+.sublime-project
+.sublime-workspace
