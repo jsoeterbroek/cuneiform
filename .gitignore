@@ -141,5 +141,5 @@ organisation.md
 .vscode/settings.json
 
 # sublime
-.sublime-project
-.sublime-workspace
+cuneiform.sublime-project
+cuneiform.sublime-workspace
