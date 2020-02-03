@@ -12,7 +12,7 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages import constants as messages
 from log.models import CuneiformLogEntry, DRUG, CLIENT, PRESCRIPTION
-from signoff.pe import create_pe, update_pe
+from signoff.tasks import create_pe, update_pe
 from .forms import PrescriptionForm, PrescriptionMatrixForm, ClientForm, DrugForm
 from .models import Prescription, Client, Drug
 from .utils import log_addition, log_change, log_doublecheck
