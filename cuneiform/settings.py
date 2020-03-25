@@ -47,7 +47,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
-    'audit_log.middleware.UserLoggingMiddleware',
+    #'audit_log.middleware.UserLoggingMiddleware',
     'medslist.get_current_user.RequestMiddleware',
     'django.middleware.locale.LocaleMiddleware',
 ]
@@ -116,3 +116,5 @@ SOUTH_TESTS_MIGRATE = False
 
 # CELERY STUFF
 CELERY_BROKER_URL = 'amqp://localhost'
+CELERY_RESULT_BACKEND = 'django-db'
+#TEST_RUNNER = 'djcelery.contrib.test_runner.CeleryTestSuiteRunner'
