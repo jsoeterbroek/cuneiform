@@ -1,4 +1,4 @@
-Django==2.2.9
+Django==3.0.4
 django-admin==2.0.0
 django-six==1.0.4
 python-dateutil==2.8.1
