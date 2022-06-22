@@ -19,7 +19,7 @@ pylint
 mypy
 django-pandas==0.6.1
 pandas==0.25.3
-numpy==1.17.4
+numpy==1.22.0
 django-widget-tweaks==1.4.5
 django-filter==2.2.0
 celery==4.4.0
